@@ -1,0 +1,76 @@
+{
+  "profile_id": "profile_c_rapid_guesser",
+  "name": "Rapid Guesser Profile (Anti-Gaming Defense)",
+  "description": "Student brute-forces 3 rapid retries within 4 seconds (<5.0s) until guessing right. Anti-gaming telemetry slashes evidence weight w to 0.0, completely defeating the guessing attack.",
+  "student_id": "STU_RAPID_GUESSER_03",
+  "initial_concept": "C2",
+  "initial_mastery": {
+    "C2": 0.40
+  },
+  "initial_stability": {
+    "C2": 7.0
+  },
+  "attempts": [
+    {
+      "attempt_index": 1,
+      "concept_id": "C2",
+      "question_id": "Q_C02_03",
+      "user_answer": "1/2",
+      "is_correct": false,
+      "difficulty": 0.45,
+      "is_transfer": false,
+      "confidence": "low",
+      "time_ms": 2100,
+      "hints_used": 0,
+      "retry_gap_seconds": null,
+      "attempt_no": 1
+    },
+    {
+      "attempt_index": 2,
+      "concept_id": "C2",
+      "question_id": "Q_C02_03",
+      "user_answer": "2/3",
+      "is_correct": false,
+      "difficulty": 0.45,
+      "is_transfer": false,
+      "confidence": "low",
+      "time_ms": 1900,
+      "hints_used": 0,
+      "retry_gap_seconds": 2.5,
+      "attempt_no": 2
+    },
+    {
+      "attempt_index": 3,
+      "concept_id": "C2",
+      "question_id": "Q_C02_03",
+      "user_answer": "5/6",
+      "is_correct": false,
+      "difficulty": 0.45,
+      "is_transfer": false,
+      "confidence": "low",
+      "time_ms": 1800,
+      "hints_used": 0,
+      "retry_gap_seconds": 3.1,
+      "attempt_no": 3
+    },
+    {
+      "attempt_index": 4,
+      "concept_id": "C2",
+      "question_id": "Q_C02_03",
+      "user_answer": "3/4",
+      "is_correct": true,
+      "difficulty": 0.45,
+      "is_transfer": false,
+      "confidence": "low",
+      "time_ms": 1500,
+      "hints_used": 0,
+      "retry_gap_seconds": 3.8,
+      "attempt_no": 4
+    }
+  ],
+  "expected_invariants": {
+    "retry_attempts_w": 0.0,
+    "max_delta_p": 0.01,
+    "attack_defeated": true
+  }
+}

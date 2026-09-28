@@ -1,0 +1,16 @@
+# MasteryFlow: Explainable Adaptive Learning & Intervention Engine
+# Core Dependencies for Backend, Frontend, and ML Engine
+
+# Backend & REST API
+fastapi>=0.100.0
+uvicorn>=0.20.0
+pydantic>=2.0.0
+requests>=2.28.0
+pyyaml>=6.0.0
+
+# Frontend & UI
+streamlit>=1.30.0
+
+# Testing & Quality Assurance
+pytest>=7.0.0
+httpx>=0.24.0

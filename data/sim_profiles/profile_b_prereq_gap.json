@@ -1,0 +1,55 @@
+{
+  "profile_id": "profile_b_prereq_gap",
+  "name": "Prerequisite Gap Profile (Ceiling Invariant Violation)",
+  "description": "Student attempts advanced concept C4 while prerequisite C2 has decayed to 0.35. Invariant caps C4 at min(prereq) + 0.25 = 0.60, tags it fragile, and triggers Remediate C2.",
+  "student_id": "STU_PREREQ_GAP_02",
+  "initial_concept": "C4",
+  "initial_mastery": {
+    "C1": 0.90,
+    "C2": 0.35,
+    "C4": 0.85
+  },
+  "initial_stability": {
+    "C1": 14.0,
+    "C2": 7.0,
+    "C4": 7.0
+  },
+  "attempts": [
+    {
+      "attempt_index": 1,
+      "concept_id": "C4",
+      "question_id": "Q_C04_01",
+      "user_answer": "5/7",
+      "is_correct": true,
+      "difficulty": 0.20,
+      "is_transfer": false,
+      "confidence": "high",
+      "time_ms": 10500,
+      "hints_used": 0,
+      "retry_gap_seconds": null,
+      "attempt_no": 1
+    },
+    {
+      "attempt_index": 2,
+      "concept_id": "C4",
+      "question_id": "Q_C04_02",
+      "user_answer": "1/2",
+      "is_correct": true,
+      "difficulty": 0.25,
+      "is_transfer": false,
+      "confidence": "high",
+      "time_ms": 11000,
+      "hints_used": 0,
+      "retry_gap_seconds": 12.0,
+      "attempt_no": 1
+    }
+  ],
+  "expected_invariants": {
+    "prereq_concept": "C2",
+    "target_concept": "C4",
+    "cap_value": 0.60,
+    "is_fragile": true,
+    "next_action": "Remediate",
+    "remediate_target": "C2"
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "profile_id": "profile_d_twin_histories",
+  "name": "Twin Histories Profile (Divergent Routing)",
+  "description": "Two students with identical 60% latest test scores diverge into completely different learning paths due to hidden state: decaying prereq vs. hint overuse.",
+  "student_a": {
+    "student_id": "STU_TWIN_A",
+    "description": "Student A has decaying prerequisite C1 after 21 elapsed days",
+    "initial_concept": "C3",
+    "mastery_state": {
+      "C1": 0.90,
+      "C2": 0.85,
+      "C3": 0.65
+    },
+    "stability": {
+      "C1": 7.0,
+      "C2": 14.0,
+      "C3": 7.0
+    },
+    "elapsed_days": 21.0,
+    "attempts": [
+      {
+        "concept_id": "C3",
+        "question_id": "Q_C03_01",
+        "is_correct": true,
+        "hints_used": 0,
+        "time_ms": 10000,
+        "confidence": "medium"
+      },
+      {
+        "concept_id": "C3",
+        "question_id": "Q_C03_02",
+        "is_correct": true,
+        "hints_used": 0,
+        "time_ms": 9500,
+        "confidence": "medium"
+      },
+      {
+        "concept_id": "C3",
+        "question_id": "Q_C03_03",
+        "is_correct": true,
+        "hints_used": 0,
+        "time_ms": 11000,
+        "confidence": "medium"
+      },
+      {
+        "concept_id": "C3",
+        "question_id": "Q_C03_04",
+        "is_correct": false,
+        "hints_used": 0,
+        "time_ms": 8000,
+        "confidence": "medium"
+      },
+      {
+        "concept_id": "C3",
+        "question_id": "Q_C03_05",
+        "is_correct": false,
+        "hints_used": 0,
+        "time_ms": 7500,
+        "confidence": "low"
+      }
+    ],
+    "expected_action": "Review",
+    "expected_target": "C1"
+  },
+  "student_b": {
+    "student_id": "STU_TWIN_B",
+    "description": "Student B has strong prerequisites but relied on multiple hints during active practice",
+    "initial_concept": "C3",
+    "mastery_state": {
+      "C1": 0.90,
+      "C2": 0.88,
+      "C3": 0.65
+    },
+    "stability": {
+      "C1": 14.0,
+      "C2": 14.0,
+      "C3": 7.0
+    },
+    "elapsed_days": 1.0,
+    "attempts": [
+      {
+        "concept_id": "C3",
+        "question_id": "Q_C03_01",
+        "is_correct": true,
+        "hints_used": 2,
+        "time_ms": 15000,
+        "confidence": "medium"
+      },
+      {
+        "concept_id": "C3",
+        "question_id": "Q_C03_02",
+        "is_correct": true,
+        "hints_used": 2,
+        "time_ms": 16000,
+        "confidence": "medium"
+      },
+      {
+        "concept_id": "C3",
+        "question_id": "Q_C03_03",
+        "is_correct": true,
+        "hints_used": 2,
+        "time_ms": 14500,
+        "confidence": "medium"
+      },
+      {
+        "concept_id": "C3",
+        "question_id": "Q_C03_04",
+        "is_correct": false,
+        "hints_used": 3,
+        "time_ms": 18000,
+        "confidence": "medium"
+      },
+      {
+        "concept_id": "C3",
+        "question_id": "Q_C03_05",
+        "is_correct": false,
+        "hints_used": 3,
+        "time_ms": 17000,
+        "confidence": "low"
+      }
+    ],
+    "expected_action": "Practice",
+    "expected_target": "C3"
+  }
+}
