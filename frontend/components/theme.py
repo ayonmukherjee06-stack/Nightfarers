@@ -1,9 +1,12 @@
-"""MasteryFlow World-Class 2026 UI Theme & Design System (theme.py).
+"""MasteryFlow Apitex Edition Design System (theme.py).
 
-Authored by: Ayon Mukherjee (Team Lead & Orchestrator) & Soham Choudhury (Frontend Co-Lead)
-Aesthetic: Raycast / Linear / Vercel Pro Glassmorphic Luxury Dark Mode.
-Includes: Animated mesh glows, pulsing live telemetry dots, bento grid containers,
-interactive quick-input chips, glowing circular gauges, and cybernetic typography.
+Aesthetic: Inspired by the Apitex Mobile Banking & Fintech Design System:
+- Warm luxury champagne / alabaster canvas (#FBF9F5) with subtle ambient warmth
+- Crisp porcelain white surfaces (#FFFFFF) with generous rounded corners (22px-26px)
+- Signature deep obsidian / carbon capsule buttons (#11141D) with high-contrast white text
+- Luxury "Cognitive Platinum Passport" widget with metallic champagne-gold mesh
+- High-end segmented pill tabs, rounded metric bars, and low-saturation pastel jewel badges
+- Ultra-crisp typography (deep charcoal #11141D headings, warm taupe-gray #6B7280 metadata)
 """
 
 from __future__ import annotations
@@ -12,97 +15,113 @@ import streamlit as st
 
 GLOBAL_THEME_CSS = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-    --bg-primary: #04060C;
-    --bg-surface: #090E20;
-    --bg-card: rgba(12, 17, 34, 0.75);
-    --bg-card-hover: rgba(18, 26, 52, 0.88);
+    --bg-base: #FBF9F5;
+    --bg-surface: #FFFFFF;
+    --bg-surface-cream: #F5EFE6;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #FFFFFF;
     
-    --accent-cyan: #00F0FF;
-    --accent-cyan-glow: rgba(0, 240, 255, 0.4);
-    --accent-blue: #38BDF8;
-    --accent-indigo: #6366F1;
-    --accent-purple: #8B5CF6;
-    --accent-green: #10B981;
-    --accent-amber: #F59E0B;
-    --accent-rose: #F43F5E;
+    --primary: #11141D;
+    --primary-hover: #1F2432;
+    --primary-subtle: #F4EEE5;
+    --primary-border: #E8E0D4;
     
-    --text-primary: #F8FAFC;
-    --text-secondary: #94A3B8;
-    --text-muted: #64748B;
+    /* Apitex Signature Accents */
+    --accent-gold: #D4AF37;
+    --accent-champagne: #F5E8D4;
+    --accent-obsidian: #11141D;
+    --accent-emerald: #059669;
+    --accent-amber: #D97706;
+    --accent-rose: #E11D48;
+    --accent-sky: #0284C7;
     
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-accent: rgba(0, 240, 255, 0.35);
-    --border-glow: rgba(0, 240, 255, 0.2);
+    --text-primary: #11141D;
+    --text-secondary: #4B5563;
+    --text-muted: #78716C;
+    
+    --border-subtle: rgba(228, 221, 211, 0.9);
+    --border-strong: #DCD4C7;
+    
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+    --radius-xl: 28px;
+    --radius-full: 9999px;
+    
+    --shadow-sm: 0 2px 6px -1px rgba(60, 50, 30, 0.03);
+    --shadow-md: 0 10px 30px -4px rgba(60, 50, 30, 0.05), 0 2px 8px -1px rgba(60, 50, 30, 0.02);
+    --shadow-lg: 0 18px 40px -6px rgba(60, 50, 30, 0.08), 0 4px 12px -2px rgba(60, 50, 30, 0.03);
 }
 
-/* Animations */
-@keyframes pulseGlow {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(0.95); }
-}
-
-@keyframes borderGlowPulse {
-    0%, 100% { border-color: rgba(0, 240, 255, 0.3); box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); }
-    50% { border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 0 25px rgba(139, 92, 246, 0.25); }
-}
-
-@keyframes shimmerSweep {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
-
-/* Global Background Canvas with Layered Cosmic Spotlight */
+/* Apitex Warm Canvas */
 .stApp {
-    background-color: var(--bg-primary) !important;
+    background-color: #FBF9F5 !important;
     background-image: 
-        radial-gradient(ellipse 90% 55% at 50% -12%, rgba(14, 165, 233, 0.16) 0%, transparent 60%),
-        radial-gradient(circle at 8% 70%, rgba(139, 92, 246, 0.10) 0%, transparent 50%),
-        radial-gradient(circle at 92% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(3, 7, 18, 0.8) 0%, transparent 100%) !important;
+        radial-gradient(circle at 12% 10%, rgba(246, 238, 227, 0.7) 0%, transparent 45%),
+        radial-gradient(circle at 88% 18%, rgba(250, 243, 233, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 50% 95%, rgba(243, 234, 221, 0.5) 0%, transparent 60%) !important;
+    background-attachment: fixed !important;
     color: var(--text-primary) !important;
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     letter-spacing: -0.01em !important;
 }
 
-/* Hide Default Streamlit Clutter */
-#MainMenu, header[data-testid="stHeader"], footer {
-    visibility: visible;
-}
-header[data-testid="stHeader"] {
-    background: transparent !important;
+/* Layout container spacing */
+.block-container {
+    padding-top: 1.5rem !important;
+    padding-bottom: 2.5rem !important;
+    max-width: 1360px !important;
 }
 
-/* Typography Overrides */
-h1, h2, h3, h4, .brand-font {
-    font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif !important;
+/* Streamlit Header Cleanup */
+#MainMenu, header[data-testid="stHeader"] {
+    background: transparent !important;
+}
+header[data-testid="stHeader"] {
+    height: 2.2rem !important;
+}
+
+/* Typography Hierarchy - Deep Obsidian Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
     letter-spacing: -0.025em !important;
-    color: #FFFFFF !important;
-    font-weight: 700 !important;
+    color: #11141D !important;
+    font-weight: 800 !important;
 }
 
 p, span, div {
-    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: inherit;
 }
 
 code, kbd, samp, pre {
     font-family: 'JetBrains Mono', monospace !important;
 }
 
-/* Sidebar Ultra-Sleek Dark Theme */
+code {
+    background: #F4EEE5 !important;
+    color: #11141D !important;
+    border: 1px solid #E5DCD0 !important;
+    padding: 2px 7px !important;
+    border-radius: 6px !important;
+    font-size: 0.88em !important;
+}
+
+/* Sidebar - Apitex Warm Cream Minimalist Panel */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #060914 0%, #03050A 100%) !important;
+    background: #F5EFE6 !important;
     border-right: 1px solid var(--border-subtle) !important;
-    box-shadow: 4px 0 35px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 2px 0 16px rgba(60, 50, 30, 0.03) !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
     color: var(--text-secondary) !important;
 }
 
-/* Modern Segmented Navigation for Sidebar Radio */
+/* Apitex Sidebar Navigation Cards */
 [data-testid="stSidebar"] [data-testid="stRadio"] > div {
     gap: 8px !important;
     background: transparent !important;
@@ -110,236 +129,307 @@ code, kbd, samp, pre {
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] label {
-    background: rgba(12, 17, 34, 0.65) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    border-radius: 12px !important;
-    padding: 11px 14px !important;
-    margin-bottom: 4px !important;
-    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    background: #FFFFFF !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 14px !important;
+    padding: 11px 16px !important;
+    margin-bottom: 2px !important;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
     cursor: pointer !important;
     display: flex !important;
     align-items: center !important;
+    box-shadow: 0 2px 8px -2px rgba(60, 50, 30, 0.04) !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] label:hover {
-    background: rgba(20, 29, 56, 0.8) !important;
-    border-color: rgba(0, 240, 255, 0.35) !important;
-    transform: translateX(3px) !important;
+    border-color: #11141D !important;
+    transform: translateX(2px) !important;
+    box-shadow: 0 4px 12px -2px rgba(60, 50, 30, 0.08) !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"],
 [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) {
-    background: linear-gradient(135deg, rgba(0, 240, 255, 0.16) 0%, rgba(56, 189, 248, 0.08) 100%) !important;
-    border: 1px solid rgba(0, 240, 255, 0.5) !important;
-    box-shadow: 0 0 18px rgba(0, 240, 255, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+    background: #11141D !important;
+    border-color: #11141D !important;
+    box-shadow: 0 6px 18px -3px rgba(17, 20, 29, 0.25) !important;
 }
 
-[data-testid="stSidebar"] [data-testid="stRadio"] label div[data-testid="stMarkdownContainer"] p {
-    font-family: 'Space Grotesk', sans-serif !important;
-    font-weight: 600 !important;
-    font-size: 0.88rem !important;
+[data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"] *,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) *,
+[data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"] p,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) p,
+[data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"] div[data-testid="stMarkdownContainer"] p,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) div[data-testid="stMarkdownContainer"] p,
+[data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"] span,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) span {
     color: #FFFFFF !important;
-    letter-spacing: -0.01em !important;
+    font-weight: 700 !important;
+    fill: #FFFFFF !important;
 }
 
-/* Tabs Styling - Modern Segmented Floating Bar */
+[data-testid="stSidebar"] [data-testid="stRadio"] label:active,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:active *,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:active div[data-testid="stMarkdownContainer"] p {
+    background: #11141D !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-checked="true"]):not(:has(input:checked)) div[data-testid="stMarkdownContainer"] p,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-checked="true"]):not(:has(input:checked)) p,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:not([data-checked="true"]):not(:has(input:checked)) span {
+    font-weight: 600 !important;
+    font-size: 0.90rem !important;
+    color: #11141D !important;
+}
+
+/* Apitex Segmented Capsule Tabs (Income/Expenses style) */
 .stTabs [data-baseweb="tab-list"] {
     gap: 6px !important;
-    background: rgba(9, 13, 26, 0.8) !important;
-    padding: 6px !important;
-    border-radius: 14px !important;
-    border: 1px solid var(--border-subtle) !important;
+    background: #EDE6DA !important;
+    padding: 5px !important;
+    border-radius: 9999px !important;
+    border: 1px solid rgba(220, 210, 195, 0.8) !important;
     margin-bottom: 22px !important;
-    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+    box-shadow: inset 0 2px 4px rgba(60, 50, 30, 0.04) !important;
 }
 
 .stTabs [data-baseweb="tab"] {
-    font-family: 'Space Grotesk', sans-serif !important;
     font-weight: 600 !important;
-    font-size: 0.90rem !important;
-    color: #94A3B8 !important;
-    border-radius: 10px !important;
-    padding: 8px 18px !important;
+    font-size: 0.88rem !important;
+    color: #78716C !important;
+    border-radius: 9999px !important;
+    padding: 8px 22px !important;
     border: none !important;
     background-color: transparent !important;
-    transition: all 0.2s ease !important;
+    transition: all 0.18s ease !important;
 }
 
 .stTabs [data-baseweb="tab"]:hover {
-    color: #00F0FF !important;
-    background-color: rgba(0, 240, 255, 0.08) !important;
+    color: #11141D !important;
 }
 
 .stTabs [aria-selected="true"] {
-    color: #00F0FF !important;
-    background: linear-gradient(135deg, rgba(0, 240, 255, 0.20), rgba(56, 189, 248, 0.10)) !important;
-    border: 1px solid rgba(0, 240, 255, 0.45) !important;
-    box-shadow: 0 0 18px rgba(0, 240, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    color: #FFFFFF !important;
+    background: #11141D !important;
+    border: none !important;
+    box-shadow: 0 4px 14px -2px rgba(17, 20, 29, 0.25) !important;
 }
 
-/* Premium 2026 Glassmorphic Card Container */
+/* Apitex Porcelain Card Container */
 .mf-glass-card {
-    background: linear-gradient(135deg, rgba(12, 18, 36, 0.82) 0%, rgba(8, 12, 26, 0.92) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
-    padding: 22px 26px;
-    margin-bottom: 22px;
-    backdrop-filter: blur(24px);
-    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
-    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    background: #FFFFFF !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 22px !important;
+    padding: 22px 26px !important;
+    margin-bottom: 20px !important;
+    box-shadow: 0 10px 30px -4px rgba(60, 50, 30, 0.05), 0 2px 8px -1px rgba(60, 50, 30, 0.02) !important;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative;
 }
 
 .mf-glass-card:hover {
-    border-color: rgba(0, 240, 255, 0.35);
-    box-shadow: 0 20px 48px -8px rgba(0, 240, 255, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
-    transform: translateY(-2px);
+    border-color: #D8CEBE !important;
+    box-shadow: 0 14px 38px -4px rgba(60, 50, 30, 0.08), 0 3px 10px -1px rgba(60, 50, 30, 0.03) !important;
+    transform: translateY(-1px) !important;
 }
 
-/* Primary Action Buttons */
+.mf-glass-card-accent {
+    background: #FFFFFF !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-left: 5px solid #11141D !important;
+    border-radius: 22px !important;
+    padding: 22px 26px !important;
+    margin-bottom: 20px !important;
+    box-shadow: 0 10px 30px -4px rgba(60, 50, 30, 0.05) !important;
+}
+
+/* Apitex Obsidian Capsule Buttons */
 .stButton>button {
-    background: linear-gradient(135deg, #00F0FF 0%, #38BDF8 60%, #3B82F6 100%) !important;
-    color: #030611 !important;
-    border: none !important;
-    border-radius: 12px !important;
+    background: #11141D !important;
+    color: #FFFFFF !important;
+    border: 1px solid #11141D !important;
+    border-radius: 9999px !important;
     padding: 10px 24px !important;
-    font-family: 'Space Grotesk', sans-serif !important;
-    font-weight: 800 !important;
-    font-size: 0.92rem !important;
-    letter-spacing: 0.4px !important;
-    box-shadow: 0 6px 22px -3px rgba(0, 240, 255, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
-    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    font-weight: 700 !important;
+    font-size: 0.90rem !important;
+    letter-spacing: -0.01em !important;
+    box-shadow: 0 6px 18px -3px rgba(17, 20, 29, 0.25) !important;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.stButton>button * {
+    color: inherit !important;
 }
 
 .stButton>button:hover {
-    background: linear-gradient(135deg, #38BDF8 0%, #60A5FA 100%) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 28px rgba(0, 240, 255, 0.65) !important;
-    color: #000000 !important;
+    background: #252A37 !important;
+    border-color: #252A37 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 8px 24px -4px rgba(17, 20, 29, 0.35) !important;
+    color: #FFFFFF !important;
 }
 
-.stButton>button:active {
+.stButton>button:hover * {
+    color: #FFFFFF !important;
+}
+
+.stButton>button:active,
+.stButton>button:focus,
+.stButton>button:focus:not(:focus-visible) {
+    background: #11141D !important;
+    border-color: #11141D !important;
+    color: #FFFFFF !important;
     transform: translateY(0) !important;
+    box-shadow: 0 4px 12px -2px rgba(17, 20, 29, 0.30) !important;
 }
 
-/* Secondary Button Styling */
+.stButton>button:active *,
+.stButton>button:focus *,
+.stButton>button:focus:not(:focus-visible) * {
+    color: #FFFFFF !important;
+}
+
+/* Secondary Button */
 button[kind="secondary"] {
-    background: rgba(14, 20, 42, 0.8) !important;
-    color: #F8FAFC !important;
-    border: 1px solid var(--border-subtle) !important;
-    border-radius: 12px !important;
+    background: #F5EFE6 !important;
+    color: #11141D !important;
+    border: 1px solid #E5DCD0 !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 2px 6px rgba(60, 50, 30, 0.03) !important;
 }
 
 button[kind="secondary"]:hover {
-    background: rgba(28, 38, 72, 0.9) !important;
-    border-color: rgba(255, 255, 255, 0.22) !important;
+    background: #EDE5DA !important;
+    border-color: #11141D !important;
+    color: #11141D !important;
 }
 
-/* Form Inputs, Textarea & Selectboxes */
+/* Inputs, Textareas, Selectboxes */
 .stTextInput>div>div>input, 
 .stTextArea>div>div>textarea, 
 .stSelectbox>div>div>div {
-    background-color: rgba(9, 14, 28, 0.88) !important;
-    color: #FFFFFF !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background-color: #FFFFFF !important;
+    color: #11141D !important;
+    border: 1px solid rgba(220, 210, 195, 0.95) !important;
     border-radius: 12px !important;
-    font-size: 0.96rem !important;
-    font-family: 'JetBrains Mono', monospace !important;
-    transition: all 0.2s ease !important;
+    font-size: 0.92rem !important;
+    box-shadow: inset 0 2px 4px rgba(60, 50, 30, 0.02) !important;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
 }
 
 .stTextInput>div>div>input:focus, 
 .stTextArea>div>div>textarea:focus, 
 .stSelectbox>div>div>div:focus {
-    border-color: var(--accent-cyan) !important;
-    box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.3) !important;
+    border-color: #11141D !important;
+    box-shadow: 0 0 0 3px rgba(17, 20, 29, 0.08) !important;
 }
 
-/* Metrics Cards Overhaul */
+/* Metric Tiles - Clean Porcelain Cards */
 [data-testid="stMetric"] {
-    background: linear-gradient(135deg, rgba(12, 18, 36, 0.72) 0%, rgba(8, 12, 26, 0.85) 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 16px !important;
+    background: #FFFFFF !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 20px !important;
     padding: 16px 20px !important;
-    box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.45) !important;
+    box-shadow: 0 6px 20px -3px rgba(60, 50, 30, 0.04) !important;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+[data-testid="stMetric"]:hover {
+    border-color: #11141D !important;
+    box-shadow: 0 10px 26px -4px rgba(60, 50, 30, 0.07) !important;
+    transform: translateY(-1px) !important;
 }
 
 [data-testid="stMetricValue"] {
-    font-family: 'Space Grotesk', sans-serif !important;
     font-weight: 800 !important;
-    color: #00F0FF !important;
-    font-size: 1.9rem !important;
-    letter-spacing: -0.02em !important;
+    color: #11141D !important;
+    font-size: 1.85rem !important;
+    letter-spacing: -0.03em !important;
 }
 
 [data-testid="stMetricLabel"] {
-    font-size: 0.72rem !important;
+    font-size: 0.74rem !important;
     text-transform: uppercase !important;
-    letter-spacing: 1.2px !important;
-    color: var(--text-secondary) !important;
+    letter-spacing: 0.6px !important;
+    color: #78716C !important;
     font-weight: 700 !important;
 }
 
-/* Expander Styling */
+/* Expanders */
 .streamlit-expanderHeader {
-    background-color: rgba(12, 18, 36, 0.75) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background-color: #FFFFFF !important;
+    border: 1px solid var(--border-subtle) !important;
     border-radius: 14px !important;
-    color: #F1F5F9 !important;
-    font-family: 'Space Grotesk', sans-serif !important;
-    font-weight: 600 !important;
-    transition: all 0.2s ease !important;
+    color: #11141D !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px -2px rgba(60, 50, 30, 0.03) !important;
 }
 
 .streamlit-expanderHeader:hover {
-    border-color: rgba(0, 240, 255, 0.35) !important;
+    border-color: #11141D !important;
 }
 
-/* Dataframe & Table Dark Overrides */
+/* Dataframe & Tables */
 [data-testid="stDataFrame"] {
-    border-radius: 14px !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: #FFFFFF !important;
+    border-radius: 16px !important;
+    border: 1px solid var(--border-subtle) !important;
     overflow: hidden !important;
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 4px 14px -2px rgba(60, 50, 30, 0.03) !important;
 }
 
 /* Alerts / Callouts */
 .stAlert {
-    background-color: rgba(12, 18, 36, 0.88) !important;
-    border-radius: 14px !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    backdrop-filter: blur(16px) !important;
+    background-color: #FFFFFF !important;
+    border-radius: 16px !important;
+    border: 1px solid var(--border-subtle) !important;
+    color: #11141D !important;
+    box-shadow: 0 6px 18px -3px rgba(60, 50, 30, 0.04) !important;
 }
 
-/* Custom Scrollbar */
+/* Apitex Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #04060C;
+    background: #FBF9F5;
 }
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
+    background: #D8CEBE;
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 240, 255, 0.5);
+    background: #B8AC9A;
 }
 </style>
 """
 
 
 def apply_theme():
-    """Injects the unified 2026 global theme CSS into Streamlit."""
+    """Injects the Apitex Edition global theme CSS into Streamlit."""
     st.markdown(GLOBAL_THEME_CSS, unsafe_allow_html=True)
 
 
 apply_custom_theme = apply_theme
 
 
-def render_circular_gauge(percentage: int, label: str, color: str = "#00F0FF", size: int = 110) -> str:
-    """Generates an ultra-crisp SVG circular gauge with glowing meter arc."""
-    stroke_width = 8
+def clean_html(html_str: str) -> str:
+    """Strips leading whitespace and empty lines to prevent CommonMark from treating HTML as code blocks."""
+    if not html_str:
+        return ""
+    return "\n".join(line.strip() for line in html_str.splitlines() if line.strip())
+
+
+def render_html(html_str: str) -> None:
+    """Safely renders HTML via st.markdown with zero risk of CommonMark code block conversion."""
+    st.markdown(clean_html(html_str), unsafe_allow_html=True)
+
+
+def render_circular_gauge(percentage: int, label: str, color: str = "#11141D", size: int = 90) -> str:
+    """Generates an Apitex-style SVG circular gauge with warm champagne track and deep obsidian arc."""
+    stroke_width = 7
     radius = (size - stroke_width * 2) // 2
     circumference = int(2 * 3.14159 * radius)
     clamped_pct = max(0, min(100, percentage))
@@ -347,82 +437,283 @@ def render_circular_gauge(percentage: int, label: str, color: str = "#00F0FF", s
     cx = size // 2
     cy = size // 2
 
-    return f"""
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    raw_html = f"""
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
         <svg width="{size}" height="{size}" viewBox="0 0 {size} {size}" style="transform: rotate(-90deg);">
-            <!-- Background Ring -->
-            <circle cx="{cx}" cy="{cy}" r="{radius}" fill="transparent" stroke="rgba(255, 255, 255, 0.08)" stroke-width="{stroke_width}" />
-            <!-- Glowing Meter Arc -->
+            <!-- Background Track -->
+            <circle cx="{cx}" cy="{cy}" r="{radius}" fill="transparent" stroke="#EFE6DA" stroke-width="{stroke_width}" />
+            <!-- Active Meter Arc -->
             <circle cx="{cx}" cy="{cy}" r="{radius}" fill="transparent" stroke="{color}" stroke-width="{stroke_width}"
                 stroke-dasharray="{circumference}" stroke-dashoffset="{stroke_dashoffset}" stroke-linecap="round"
-                style="filter: drop-shadow(0 0 8px {color}88); transition: stroke-dashoffset 0.6s ease;" />
+                style="transition: stroke-dashoffset 0.6s cubic-bezier(0.16, 1, 0.3, 1);" />
         </svg>
-        <div style="margin-top: -{size * 0.62}px; text-align: center; pointer-events: none;">
-            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 1.45rem; font-weight: 800; color: #FFFFFF; line-height: 1;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+            <div style="font-size: 1.20rem; font-weight: 800; color: #11141D; line-height: 1; letter-spacing: -0.5px;">
                 {clamped_pct}%
             </div>
-            <div style="font-size: 0.65rem; color: #94A3B8; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-top: 4px;">
+            <div style="font-size: 0.62rem; color: #78716C; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-top: 3px;">
                 {label}
             </div>
         </div>
-        <div style="height: {size * 0.25}px;"></div>
     </div>
     """
+    return clean_html(raw_html)
 
 
-def render_brand_header(title: str, subtitle: str, badge: str = "LIVE DETERMINISTIC PSYCHOMETRICS"):
-    """Renders a consistent, high-end 2026 Linear-style hero header across all portal pages."""
+def render_brand_header(title: str, subtitle: str, badge: str = "Adaptive Learning System"):
+    """Renders the Apitex-style minimalist luxury brand header."""
     header_html = f"""
     <div style="
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 14px;
-        padding: 14px 0 22px 0;
-        margin-bottom: 22px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        gap: 12px;
+        padding: 6px 0 18px 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(228, 221, 211, 0.9);
     ">
-        <div>
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                <span style="
-                    font-size: 1.85rem;
-                    background: linear-gradient(135deg, #00F0FF 0%, #38BDF8 50%, #818CF8 100%);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    font-family: 'Space Grotesk', sans-serif;
-                    font-weight: 800;
-                    letter-spacing: -0.8px;
-                ">
-                    MasteryFlow
-                </span>
-                <span style="
-                    background: rgba(0, 240, 255, 0.12);
-                    color: #00F0FF;
-                    border: 1px solid rgba(0, 240, 255, 0.35);
-                    font-size: 0.70rem;
-                    font-weight: 700;
-                    padding: 3px 10px;
-                    border-radius: 9999px;
-                    letter-spacing: 0.8px;
-                    text-transform: uppercase;
-                    box-shadow: 0 0 12px rgba(0, 240, 255, 0.15);
-                ">
-                    ● {badge}
-                </span>
-            </div>
-            <div style="font-size: 0.92rem; color: #94A3B8; font-weight: 400; font-family: 'Plus Jakarta Sans', sans-serif;">
-                {subtitle}
+        <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="
+                width: 44px;
+                height: 44px;
+                border-radius: 14px;
+                background: #11141D;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #FFFFFF;
+                font-weight: 900;
+                font-size: 1.2rem;
+                box-shadow: 0 6px 16px -2px rgba(17, 20, 29, 0.25);
+            ">▲</div>
+            <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 2px;">
+                    <span style="
+                        font-size: 1.7rem;
+                        color: #11141D;
+                        font-weight: 800;
+                        letter-spacing: -0.03em;
+                    ">
+                        Mastery<span style="color: #78716C; font-weight: 600;">Flow</span>
+                    </span>
+                    <span style="
+                        background: #F4EEE5;
+                        color: #11141D;
+                        border: 1px solid #E5DCD0;
+                        font-size: 0.70rem;
+                        font-weight: 700;
+                        padding: 3px 12px;
+                        border-radius: 9999px;
+                        letter-spacing: 0.4px;
+                    ">
+                        {badge}
+                    </span>
+                </div>
+                <div style="font-size: 0.86rem; color: #78716C; font-weight: 500;">
+                    {subtitle}
+                </div>
             </div>
         </div>
         <div style="text-align: right;">
-            <span style="font-size: 0.74rem; color: #64748B; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">
-                YUVA Megathon 2026 &middot; Domain 4: Intelligent Educational Systems
+            <span style="font-size: 0.72rem; color: #78716C; letter-spacing: 0.5px; font-weight: 600; text-transform: uppercase;">
+                YUVA Megathon 2026 &middot; Intelligent Educational Systems
             </span>
-            <div style="font-size: 0.82rem; color: #E2E8F0; font-weight: 600; margin-top: 3px;">
-                Team Nightfarers &middot; Lead: Ayon Mukherjee
+            <div style="font-size: 0.82rem; color: #11141D; font-weight: 700; margin-top: 2px;">
+                Apitex Edition &middot; Adaptive Math Platform
             </div>
         </div>
     </div>
     """
-    st.markdown(header_html, unsafe_allow_html=True)
+    render_html(header_html)
+
+
+def render_judge_demo_ribbon():
+    """Renders the Apitex-style evaluation and presentation ribbon."""
+    render_html("""
+    <div style="
+        background: #FFFFFF;
+        border: 1px solid rgba(228, 221, 211, 0.9);
+        border-top: 4px solid #11141D;
+        border-radius: 20px;
+        padding: 14px 20px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        box-shadow: 0 8px 24px -3px rgba(60, 50, 30, 0.04);
+    ">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div>
+                <span style="font-size: 0.88rem; font-weight: 800; color: #11141D;">
+                    Official Jury Evaluation &amp; Presentation Mode
+                </span>
+                <span style="font-size: 0.78rem; color: #78716C; margin-left: 8px;">
+                    Deterministic 6-rule decision loop &middot; Bayesian Knowledge Tracing &middot; Zero LLM Invariants
+                </span>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="font-size: 0.72rem; color: #059669; background: #E8F7F0; border: 1px solid #A7F3D0; padding: 4px 12px; border-radius: 9999px; font-weight: 700;">
+                100% Deterministic Engine
+            </span>
+            <span style="font-size: 0.72rem; color: #0284C7; background: #E0F2FE; border: 1px solid #BAE6FD; padding: 4px 12px; border-radius: 9999px; font-weight: 700;">
+                10-Node Curriculum DAG
+            </span>
+            <span style="font-size: 0.72rem; color: #7C3AED; background: #EDE9FE; border: 1px solid #DDD6FE; padding: 4px 12px; border-radius: 9999px; font-weight: 700;">
+                Ebbinghaus Spaced Review
+            </span>
+        </div>
+    </div>
+    """)
+
+
+def render_apitex_passport_card(
+    student_id: str,
+    student_name: str,
+    p_eff: float,
+    certified_count: int,
+    total_count: int = 10,
+    status: str = "Active Learner"
+) -> None:
+    """Renders the signature Apitex Luxury Platinum Card widget for student status."""
+    pct = int(p_eff * 100)
+    card_html = f"""
+    <div style="
+        background: linear-gradient(135deg, #FDF7EE 0%, #F5E8D4 45%, #EED9BD 100%);
+        border: 1px solid rgba(214, 185, 140, 0.45);
+        border-radius: 24px;
+        padding: 24px 28px;
+        margin-bottom: 20px;
+        box-shadow: 0 14px 34px -4px rgba(180, 140, 90, 0.16), 0 3px 10px -1px rgba(60, 50, 30, 0.04);
+        position: relative;
+        overflow: hidden;
+    ">
+        <!-- Subtle radial mesh decoration -->
+        <div style="
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+            pointer-events: none;
+        "></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+            <div>
+                <div style="font-size: 0.72rem; font-weight: 800; color: #8A7255; text-transform: uppercase; letter-spacing: 1.2px;">
+                    COGNITIVE PASSPORT &middot; PLATINUM
+                </div>
+                <div style="font-size: 1.15rem; font-weight: 800; color: #11141D; margin-top: 2px;">
+                    {student_name}
+                </div>
+                <div style="font-size: 0.76rem; color: #8A7255; font-family: monospace;">
+                    {student_id} &bull;&bull;&bull;&bull; 2026
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="
+                    width: 34px;
+                    height: 26px;
+                    border-radius: 6px;
+                    background: linear-gradient(135deg, #D4AF37 0%, #AA820A 100%);
+                    border: 1px solid rgba(255, 255, 255, 0.4);
+                    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3);
+                "></div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 14px;">
+            <div>
+                <div style="font-size: 0.70rem; color: #8A7255; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;">
+                    EFFECTIVE COGNITIVE READINESS
+                </div>
+                <div style="font-size: 2.1rem; font-weight: 900; color: #11141D; line-height: 1.1; letter-spacing: -0.03em;">
+                    {pct}% <span style="font-size: 0.95rem; font-weight: 700; color: #8A7255;">p_eff</span>
+                </div>
+            </div>
+
+            <div style="text-align: right;">
+                <span style="
+                    background: #11141D;
+                    color: #FFFFFF;
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    padding: 5px 14px;
+                    border-radius: 9999px;
+                    letter-spacing: 0.4px;
+                    display: inline-block;
+                    box-shadow: 0 4px 12px rgba(17, 20, 29, 0.2);
+                ">
+                    {certified_count}/{total_count} CERTIFIED
+                </span>
+                <div style="font-size: 0.72rem; color: #8A7255; margin-top: 4px; font-weight: 600;">
+                    Status: {status}
+                </div>
+            </div>
+        </div>
+    </div>
+    """
+    render_html(card_html)
+
+
+def render_apitex_quick_actions(
+    act1_label: str = "Practice Next Action",
+    act2_label: str = "Spaced Review",
+    act3_label: str = "Student Agency",
+) -> None:
+    """Renders the signature Apitex 3-capsule quick actions row."""
+    html_row = f"""
+    <div style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+    ">
+        <div style="
+            background: #11141D;
+            color: #FFFFFF;
+            border-radius: 16px;
+            padding: 14px 16px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 6px 18px -3px rgba(17, 20, 29, 0.25);
+            cursor: pointer;
+        ">
+            {act1_label}
+        </div>
+        <div style="
+            background: #11141D;
+            color: #FFFFFF;
+            border-radius: 16px;
+            padding: 14px 16px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 6px 18px -3px rgba(17, 20, 29, 0.25);
+            cursor: pointer;
+        ">
+            {act2_label}
+        </div>
+        <div style="
+            background: #11141D;
+            color: #FFFFFF;
+            border-radius: 16px;
+            padding: 14px 16px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 6px 18px -3px rgba(17, 20, 29, 0.25);
+            cursor: pointer;
+        ">
+            {act3_label}
+        </div>
+    </div>
+    """
+    render_html(html_row)

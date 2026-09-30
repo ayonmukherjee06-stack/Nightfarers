@@ -1,9 +1,7 @@
-"""MasteryFlow Fraction & Ratio Question Runner with Metacognitive Telemetry.
+"""MasteryFlow Fraction & Ratio Question Runner.
 
-Owner: Soham Choudhury (Frontend Co-Lead & Question Bank Lead)
-Aesthetic: Raycast/Linear 2026 dark glass question player with interactive telemetry chips,
-quick-format suggestions, metacognitive confidence tuning, and progressive hint scaffolding.
-Security: Zero eval/exec, safe mathematical verification via fractions.Fraction.
+Apitex Edition: Clean, distraction-free mathematical problem player with progressive hints,
+quick fraction input helpers, and confidence calibration in refined warm porcelain style.
 """
 
 import time
@@ -11,13 +9,18 @@ from typing import Any, Callable, Dict, List, Optional
 import streamlit as st
 from .math_parser import evaluate_student_answer, parse_fraction_input
 
+try:
+    from frontend.components.theme import render_html
+except ImportError:
+    from .theme import render_html
+
 
 def render_question_runner(
     question: Dict[str, Any],
     on_submit_attempt: Callable[[Dict[str, Any]], None],
     current_streak: int = 0
 ):
-    """Renders the question player, confidence selector, progressive hints, and submission controls."""
+    """Renders the question player, confidence selector, progressive hints, and submission controls in Apitex Edition."""
     qid = question.get("id") or question.get("question_id", "Q_01")
     cid = question.get("concept_id", "C1")
     qtype = str(question.get("type", "medium")).upper()
@@ -38,85 +41,101 @@ def render_question_runner(
         st.session_state[start_time_key] = time.time()
 
     last_sub_key = f"last_submission_time_{qid}"
+    quick_input_key = f"input_{qid}"
+    if quick_input_key not in st.session_state:
+        st.session_state[quick_input_key] = ""
 
-    type_color = "#10B981" if qtype in ["EASY", "LOW"] else ("#00F0FF" if qtype in ["MEDIUM", "MED"] else "#F43F5E")
+    type_color = "#059669" if qtype in ["EASY", "LOW"] else ("#0284C7" if qtype in ["MEDIUM", "MED"] else "#E11D48")
+    type_bg = "#E8F7F0" if qtype in ["EASY", "LOW"] else ("#E0F2FE" if qtype in ["MEDIUM", "MED"] else "#FFE4E6")
+    diff_bar_pct = int(min(100, max(15, diff * 100)))
 
     streak_badge = f"""
     <div style="
-        background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(217, 119, 6, 0.12));
-        color: #FBBF24;
-        border: 1px solid rgba(245, 158, 11, 0.5);
-        padding: 4px 14px;
+        background: #FEF3C7;
+        color: #D97706;
+        border: 1px solid #FDE68A;
+        padding: 4px 12px;
         border-radius: 9999px;
-        font-weight: 800;
+        font-weight: 700;
         font-size: 0.78rem;
-        letter-spacing: 0.8px;
-        box-shadow: 0 0 16px rgba(245, 158, 11, 0.2);
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 5px;
     ">
-        <span>🔥</span> {current_streak} STREAK
+         {current_streak} streak
     </div>
     """ if current_streak > 0 else ""
 
     transfer_badge = f"""
     <span style="
-        background: rgba(168, 85, 247, 0.18);
-        color: #C084FC;
-        border: 1px solid rgba(168, 85, 247, 0.4);
-        font-size: 0.70rem;
+        background: #EDE9FE;
+        color: #7C3AED;
+        border: 1px solid #DDD6FE;
+        font-size: 0.72rem;
         font-weight: 700;
-        padding: 2px 8px;
-        border-radius: 6px;
-        letter-spacing: 0.5px;
+        padding: 3px 10px;
+        border-radius: 9999px;
     ">
-        TRANSFER PROOF
+        Mastery Check
     </span>
     """ if is_transfer else ""
 
-    # Modern Question Header & Prompt Card
-    st.markdown(f"""
+    options = question.get("options") or []
+    if options:
+        format_bar = '<span style="font-weight: 600; color: #4B5563;">Question Type:</span> <span style="color: #11141D; font-weight: 700;">Multiple Choice</span> &middot; Select the best answer option.'
+    else:
+        format_bar = """
+        <span style="font-weight: 600; color: #4B5563;">Accepted formats:</span>
+        <code style="color: #11141D; background: #F4EEE5; border: 1px solid #E5DCD0; padding: 2px 7px; border-radius: 6px;">3/4</code>
+        <code style="color: #11141D; background: #F4EEE5; border: 1px solid #E5DCD0; padding: 2px 7px; border-radius: 6px;">1 1/2</code>
+        <code style="color: #11141D; background: #F4EEE5; border: 1px solid #E5DCD0; padding: 2px 7px; border-radius: 6px;">0.75</code>
+        <code style="color: #11141D; background: #F4EEE5; border: 1px solid #E5DCD0; padding: 2px 7px; border-radius: 6px;">5</code>
+        """
+
+    # Apitex Question Header & Prompt Card
+    render_html(f"""
     <div style="
-        background: linear-gradient(135deg, rgba(13, 19, 38, 0.82) 0%, rgba(8, 13, 26, 0.94) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 18px;
-        padding: 24px 26px;
-        margin-bottom: 18px;
-        backdrop-filter: blur(20px);
-        box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        background: #FFFFFF;
+        border: 1px solid rgba(228, 221, 211, 0.9);
+        border-radius: 22px;
+        padding: 24px 28px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 30px -4px rgba(60, 50, 30, 0.05), 0 2px 8px -1px rgba(60, 50, 30, 0.02);
     ">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
-            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                 <span style="
                     font-family: 'JetBrains Mono', monospace;
-                    font-size: 0.82rem;
-                    color: #38BDF8;
+                    font-size: 0.80rem;
+                    color: #11141D;
                     font-weight: 700;
-                    background: rgba(56, 189, 248, 0.12);
-                    border: 1px solid rgba(56, 189, 248, 0.3);
-                    padding: 3px 9px;
+                    background: #F4EEE5;
+                    border: 1px solid #E5DCD0;
+                    padding: 3px 8px;
                     border-radius: 6px;
                 ">
                     {qid}
                 </span>
                 <span style="
-                    background: {type_color}18;
+                    background: {type_bg};
                     color: {type_color};
-                    border: 1px solid {type_color}55;
-                    font-size: 0.70rem;
+                    border: 1px solid {type_color}30;
+                    font-size: 0.72rem;
                     font-weight: 700;
                     padding: 3px 10px;
                     border-radius: 9999px;
                     text-transform: uppercase;
-                    letter-spacing: 0.6px;
                 ">
                     {qtype}
                 </span>
                 {transfer_badge}
-                <span style="font-size: 0.74rem; color: #94A3B8; font-family: 'Space Grotesk', sans-serif;">
-                    Item Difficulty: <strong style="color: #F8FAFC;">{diff:.2f}</strong>
-                </span>
+                <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; color: #78716C;">
+                    <span>Difficulty:</span>
+                    <strong style="color: #11141D;">{diff:.2f}</strong>
+                    <div style="width: 44px; height: 6px; background: #EDE6DA; border-radius: 999px; overflow: hidden; display: inline-block;">
+                        <div style="width: {diff_bar_pct}%; height: 100%; background: {type_color}; border-radius: 999px;"></div>
+                    </div>
+                </div>
             </div>
             <div>
                 {streak_badge}
@@ -125,12 +144,11 @@ def render_question_runner(
 
         <div style="
             font-size: 1.25rem;
-            font-weight: 600;
-            color: #FFFFFF;
-            line-height: 1.65;
-            letter-spacing: -0.01em;
-            padding: 8px 0;
-            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: #11141D;
+            line-height: 1.6;
+            letter-spacing: -0.015em;
+            padding: 6px 0 12px 0;
         ">
             {prompt}
         </div>
@@ -138,86 +156,104 @@ def render_question_runner(
         <div style="
             display: flex;
             gap: 8px;
-            margin-top: 14px;
+            margin-top: 12px;
             padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            font-size: 0.72rem;
-            color: #64748B;
+            border-top: 1px solid rgba(228, 221, 211, 0.9);
+            font-size: 0.74rem;
+            color: #78716C;
             flex-wrap: wrap;
             align-items: center;
         ">
-            <span>Accepted Formats:</span>
-            <code style="color: #94A3B8; background: rgba(255,255,255,0.05); padding: 1px 6px; border-radius: 4px;">3/4</code>
-            <code style="color: #94A3B8; background: rgba(255,255,255,0.05); padding: 1px 6px; border-radius: 4px;">1 1/2</code>
-            <code style="color: #94A3B8; background: rgba(255,255,255,0.05); padding: 1px 6px; border-radius: 4px;">0.75</code>
-            <code style="color: #94A3B8; background: rgba(255,255,255,0.05); padding: 1px 6px; border-radius: 4px;">5</code>
-            <span style="margin-left: auto; color: #38BDF8; font-weight: 600;">⚡ Multi-Signal Telemetry Active</span>
+            {format_bar}
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """)
 
-    # Progressive Hint Drawer
+    # Interactive Progressive Hint Drawer
     num_hints_revealed = st.session_state[hint_key]
-    with st.expander(f"💡 Progressive Scaffolding Hints ({num_hints_revealed}/{len(hints)} revealed)", expanded=(num_hints_revealed > 0)):
-        st.markdown(
-            "<p style='font-size: 0.82rem; color: #94A3B8; margin-bottom: 12px;'>"
-            "Note: Each hint consulted applies a <strong>0.5&times;</strong> multiplicative attenuation to your evidence weight "
-            "<code>w</code> in accordance with BKT multi-signal telemetry.</p>",
-            unsafe_allow_html=True
+    with st.expander(f"Need a hint? ({num_hints_revealed}/{len(hints)} revealed)", expanded=(num_hints_revealed > 0)):
+        render_html(
+            "<div style='background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; padding: 10px 14px; margin-bottom: 10px;'>"
+            "<p style='font-size: 0.82rem; color: #92400E; margin: 0; line-height: 1.4;'>"
+            "Hints guide you step-by-step. Try applying each clue before requesting another."
+            "</p></div>"
         )
         for h_idx in range(num_hints_revealed):
-            st.info(f"💡 Hint {h_idx + 1}: {hints[h_idx]}")
+            st.info(f"Hint {h_idx + 1}: {hints[h_idx]}")
 
         if num_hints_revealed < len(hints):
             if st.button(f"Reveal Next Hint ({num_hints_revealed + 1}/{len(hints)})", key=f"btn_hint_{qid}"):
                 st.session_state[hint_key] += 1
                 st.rerun()
 
-    # Input & Metacognitive Submission Form
+
+    # Clean Submission Form
     with st.form(key=f"form_question_{qid}"):
-        col_ans, col_conf = st.columns([3, 2])
-
-        with col_ans:
-            user_input = st.text_input(
-                "Your Answer:",
-                placeholder="Type simplified fraction or integer (e.g. 3/4, 5/6, 1 1/2)...",
-                key=f"input_{qid}"
+        if options:
+            selected_mcq = st.radio(
+                "Choose the correct option:",
+                options=options,
+                key=f"mcq_radio_{qid}",
+                index=None
             )
+            user_input = selected_mcq or ""
+            col_blank, col_conf = st.columns([3, 2])
+            with col_conf:
+                confidence = st.selectbox(
+                    "How confident are you?",
+                    options=[
+                        "High — I'm confident in this answer",
+                        "Medium — Pretty sure, checking my work",
+                        "Low — Making an educated guess"
+                    ],
+                    index=0,
+                    key=f"conf_{qid}",
+                    help="Helps the learning system tailor the pace of subsequent practice."
+                )
+        else:
+            col_ans, col_conf = st.columns([3, 2])
 
-        with col_conf:
-            confidence = st.selectbox(
-                "Metacognitive Confidence:",
-                options=[
-                    "High — Certain (Full evidence weight 1.0x)",
-                    "Medium — Somewhat sure (Calibrated 0.8x)",
-                    "Low — Guessing (Discounted 0.4x)"
-                ],
-                index=0,
-                key=f"conf_{qid}",
-                help="Calibrates anti-guessing Bayesian evidence weights based on self-reported metacognition."
-            )
+            with col_ans:
+                user_input = st.text_input(
+                    "Your Answer:",
+                    value=st.session_state.get(quick_input_key, ""),
+                    placeholder="Type your answer (e.g. 3/4, 1 1/2, 0.5)...",
+                    key=f"field_input_{qid}"
+                )
 
-        submit_btn = st.form_submit_button("🚀 Submit Answer with Telemetry", use_container_width=True)
+            with col_conf:
+                confidence = st.selectbox(
+                    "How confident are you?",
+                    options=[
+                        "High — I'm confident in this answer",
+                        "Medium — Pretty sure, checking my work",
+                        "Low — Making an educated guess"
+                    ],
+                    index=0,
+                    key=f"conf_{qid}",
+                    help="Helps the learning system tailor the pace of subsequent practice."
+                )
+
+        submit_btn = st.form_submit_button("Submit Answer", use_container_width=True)
 
     if submit_btn:
-        if not user_input.strip():
-            st.warning("Please type your answer before submitting.")
+        actual_input = user_input.strip() if isinstance(user_input, str) else str(user_input or "")
+        if not actual_input:
+            st.warning("Please select or enter your answer before submitting.")
             return
 
         now = time.time()
         start_time = st.session_state.get(start_time_key, now - 10.0)
         time_ms = int(max(500, (now - start_time) * 1000))
 
-        # Check retry gap if previous submission exists
         last_sub_time = st.session_state.get(last_sub_key)
         retry_gap_sec = round(now - last_sub_time, 2) if last_sub_time else None
         st.session_state[last_sub_key] = now
 
-        # Evaluate safely via fractions.Fraction (ZERO eval)
-        is_correct, parsed_val, err_msg = evaluate_student_answer(user_input, correct_ans)
+        is_correct, parsed_val, err_msg = evaluate_student_answer(actual_input, correct_ans, options=options)
 
         if err_msg:
-            st.error(f"Input Error: {err_msg}")
+            st.error(f"Format Notice: {err_msg}")
             return
 
         conf_code = "high" if "High" in confidence else ("low" if "Low" in confidence else "medium")

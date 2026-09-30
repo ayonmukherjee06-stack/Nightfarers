@@ -7,13 +7,48 @@
       "description": "Attempts advanced concept C7 (Equivalent ratios), but repeatedly stumbles due to an unmastered gap in prerequisite C2 (Equivalent fractions).",
       "initial_concept": "C7",
       "initial_mastery": {
-        "C1": {"p_eff": 0.88, "was_mastered": true, "transfer_verified": true},
-        "C2": {"p_eff": 0.42, "was_mastered": false, "transfer_verified": false},
-        "C3": {"p_eff": 0.50, "was_mastered": false, "transfer_verified": false},
-        "C4": {"p_eff": 0.50, "was_mastered": false, "transfer_verified": false},
-        "C5": {"p_eff": 0.65, "was_mastered": false, "transfer_verified": false},
-        "C6": {"p_eff": 0.60, "was_mastered": false, "transfer_verified": false},
-        "C7": {"p_eff": 0.48, "was_mastered": false, "transfer_verified": false, "errors_count": 2, "hints_count": 2, "history_p": [0.35, 0.42, 0.48]}
+        "C1": {
+          "p_eff": 0.88,
+          "was_mastered": true,
+          "transfer_verified": true
+        },
+        "C2": {
+          "p_eff": 0.42,
+          "was_mastered": false,
+          "transfer_verified": false
+        },
+        "C3": {
+          "p_eff": 0.5,
+          "was_mastered": false,
+          "transfer_verified": false
+        },
+        "C4": {
+          "p_eff": 0.5,
+          "was_mastered": false,
+          "transfer_verified": false
+        },
+        "C5": {
+          "p_eff": 0.65,
+          "was_mastered": false,
+          "transfer_verified": false
+        },
+        "C6": {
+          "p_eff": 0.6,
+          "was_mastered": false,
+          "transfer_verified": false
+        },
+        "C7": {
+          "p_eff": 0.48,
+          "was_mastered": false,
+          "transfer_verified": false,
+          "errors_count": 2,
+          "hints_count": 2,
+          "history_p": [
+            0.35,
+            0.42,
+            0.48
+          ]
+        }
       },
       "expected_initial_action": "REMEDIATE_PREREQUISITE",
       "expected_target_concept": "C2"
@@ -25,9 +60,26 @@
       "description": "Mastered foundational concept C1 with high proficiency, but returns after a 21-day gap. Retention has decayed below 0.60.",
       "initial_concept": "C3",
       "initial_mastery": {
-        "C1": {"p_eff": 0.48, "was_mastered": true, "transfer_verified": true},
-        "C2": {"p_eff": 0.82, "was_mastered": true, "transfer_verified": true},
-        "C3": {"p_eff": 0.70, "was_mastered": false, "transfer_verified": false, "history_p": [0.55, 0.62, 0.70]}
+        "C1": {
+          "p_eff": 0.48,
+          "was_mastered": true,
+          "transfer_verified": true
+        },
+        "C2": {
+          "p_eff": 0.82,
+          "was_mastered": true,
+          "transfer_verified": true
+        },
+        "C3": {
+          "p_eff": 0.7,
+          "was_mastered": false,
+          "transfer_verified": false,
+          "history_p": [
+            0.55,
+            0.62,
+            0.7
+          ]
+        }
       },
       "expected_initial_action": "REVIEW",
       "expected_target_concept": "C1"
@@ -39,8 +91,25 @@
       "description": "Trapped in an unproductive cognitive plateau on C2 with minimal gains (gain < 0.05 across 3 attempts).",
       "initial_concept": "C2",
       "initial_mastery": {
-        "C1": {"p_eff": 0.85, "was_mastered": true, "transfer_verified": true},
-        "C2": {"p_eff": 0.42, "was_mastered": false, "transfer_verified": false, "history_p": [0.39, 0.40, 0.41, 0.42], "attempts_count": 6, "errors_count": 4, "hints_count": 3}
+        "C1": {
+          "p_eff": 0.85,
+          "was_mastered": true,
+          "transfer_verified": true
+        },
+        "C2": {
+          "p_eff": 0.42,
+          "was_mastered": false,
+          "transfer_verified": false,
+          "history_p": [
+            0.39,
+            0.4,
+            0.41,
+            0.42
+          ],
+          "attempts_count": 6,
+          "errors_count": 4,
+          "hints_count": 3
+        }
       },
       "expected_initial_action": "TEACHER_INTERVENTION",
       "expected_target_concept": "C2"
@@ -52,11 +121,40 @@
       "description": "Rapidly masters concepts with high accuracy and transfer verification, ready to advance through the DAG.",
       "initial_concept": "C1",
       "initial_mastery": {
-        "C1": {"p_eff": 0.95, "was_mastered": true, "transfer_verified": true, "history_p": [0.70, 0.85, 0.95]},
-        "C2": {"p_eff": 0.20, "was_mastered": false, "transfer_verified": false}
+        "C1": {
+          "p_eff": 0.95,
+          "was_mastered": true,
+          "transfer_verified": true,
+          "history_p": [
+            0.7,
+            0.85,
+            0.95
+          ]
+        },
+        "C2": {
+          "p_eff": 0.2,
+          "was_mastered": false,
+          "transfer_verified": false
+        }
       },
       "expected_initial_action": "ADVANCE",
       "expected_target_concept": "C2"
+    },
+    {
+      "id": "STU_374",
+      "name": "Yash Mallick",
+      "archetype": "Registered Learner",
+      "description": "Registered user Yash Mallick (Grade 6 Mathematics (Standard))",
+      "initial_concept": "C1",
+      "initial_mastery": {
+        "C1": {
+          "p_eff": 0.3,
+          "was_mastered": false,
+          "transfer_verified": false
+        }
+      },
+      "expected_initial_action": "ASSESS",
+      "expected_target_concept": "C1"
     }
   ]
 }

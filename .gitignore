@@ -14,9 +14,13 @@ venv/
 env/
 ENV/
 
-# OS and Editor files
+# OS, Cloud Sync & Editor files
 .DS_Store
 Thumbs.db
+desktop.ini
+~$*
+*.tmp
+.849C9593*
 .vscode/
 .idea/
 

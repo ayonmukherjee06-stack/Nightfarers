@@ -57,7 +57,7 @@ def root_status():
         "service": "MasteryFlow Engine REST API",
         "version": "1.0.0",
         "domain": "Domain 04: Intelligent Educational Systems",
-        "team": "Team Nightfarers (YUVA Megathon 2026)",
+        "competition": "YUVA Megathon 2026",
         "docs_url": "/docs",
         "psychometric_invariants": {
             "pure_python_engine": True,

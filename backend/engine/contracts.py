@@ -75,9 +75,40 @@ CANONICAL_CONCEPTS: Dict[str, Dict[str, Any]] = {
     },
 }
 
+try:
+    from data.curricula import (
+        NETWORKS_CONCEPTS,
+        AI_CONCEPTS,
+        FLA_CONCEPTS,
+        BIOCHEM_CONCEPTS,
+        SUBJECTS_CONCEPTS_MAP,
+        SUBJECTS_REGISTRY
+    )
+except ImportError:
+    NETWORKS_CONCEPTS = {}
+    AI_CONCEPTS = {}
+    FLA_CONCEPTS = {}
+    BIOCHEM_CONCEPTS = {}
+    SUBJECTS_CONCEPTS_MAP = {"Mathematics": CANONICAL_CONCEPTS}
+    SUBJECTS_REGISTRY = {}
+
+
+def get_subject_curriculum_graph(subject_name: str = "Mathematics") -> "CurriculumGraph":
+    """Constructs a validated CurriculumGraph for any of the 5 subjects."""
+    cmap = SUBJECTS_CONCEPTS_MAP.get(subject_name, CANONICAL_CONCEPTS)
+    # Adapt to prereqs format expected by CurriculumGraph
+    adapted = {}
+    for cid, data in cmap.items():
+        adapted[cid] = {
+            "title": data.get("name") or data.get("title", cid),
+            "prereqs": data.get("prerequisites") if "prerequisites" in data else data.get("prereqs", []),
+            "description": data.get("description", "")
+        }
+    return CurriculumGraph(adapted)
+
 
 class CurriculumGraph:
-    """Directed Acyclic Graph (DAG) for the C1-C10 Curriculum."""
+    """Directed Acyclic Graph (DAG) for Curriculum Concepts."""
 
     def __init__(self, concepts_dict: Optional[Dict[str, Dict[str, Any]]] = None):
         self._concepts = copy.deepcopy(concepts_dict or CANONICAL_CONCEPTS)
@@ -101,6 +132,15 @@ class CurriculumGraph:
         for concept_id in self._concepts:
             if concept_id not in visited:
                 dfs(concept_id)
+
+    def __contains__(self, concept_id: str) -> bool:
+        """Enables 'concept_id in graph' syntax."""
+        return concept_id in self._concepts
+
+    @property
+    def graph(self) -> Dict[str, Dict[str, Any]]:
+        """Compatibility property returning internal concept map for graph queries."""
+        return self._concepts
 
     def get_prerequisites(self, concept_id: str) -> List[str]:
         """Returns immediate prerequisite concept IDs."""
@@ -146,6 +186,10 @@ class CurriculumGraph:
             if cid not in visited:
                 dfs(cid)
         return order
+
+    def topological_order(self) -> List[str]:
+        """Alias for get_topological_order() for cross-graph compatibility."""
+        return self.get_topological_order()
 
 
 @dataclass

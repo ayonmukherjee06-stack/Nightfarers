@@ -1,19 +1,23 @@
 # MasteryFlow: Explainable Adaptive Learning & Intervention Engine
 
+**Team Name:** Nightfarers | **Team Leader:** Ayon Mukherjee (+91 8102429090), Email ID - ayonmukherjee06@gmail.com
+**Team Members** : Ayon Mukherjee, Shreyash Jha, Shubham Mallick, Soham Choudhury.
+**GitHub Link** : 
+
+
 **YUVA Megathon 2026 | SRM Institute of Science and Technology, Tiruchirappalli**  
 **Track:** EduGenAI | **Domain 04:** Intelligent Educational Systems  
 **Challenge:** MasteryFlow: Explainable Adaptive Learning and Intervention Engine  
-**Team Name:** Nightfarers | **Team Leader:** Ayon Mukherjee (+91 8102429090)
 
 ---
 
-## 📁 Clean & Modular Project Architecture
+##  Clean & Modular Project Architecture
 
 The codebase is organized into cleanly decoupled directories:
 
 ```text
 YUVA/
-├── backend/                # 🧠 Algorithmic Core, FastAPI REST API, and SQLite Database Layer
+├── backend/                #  Algorithmic Core, FastAPI REST API, and SQLite Database Layer
 │   ├── api/                # FastAPI routes, models, database layer (db.py), and seeder (seed_data.py)
 │   ├── engine/             # Pure-Python BKT, DAG graph, 6 pedagogical rules (decide.py), decay, overrides
 │   ├── sim/                # CLI demo and student archetype replay harness
@@ -21,7 +25,7 @@ YUVA/
 │   ├── run_api.py          # FastAPI REST backend launcher (port 8000)
 │   └── __init__.py
 │
-├── frontend/               # 🌌 Modern 2026 Dark Glassmorphic User Interface
+├── frontend/               #  Modern 2026 Dark Glassmorphic User Interface
 │   ├── components/         # Modular UI cards: Glass-box HUD, DAG visualizer, heatmap, telemetry
 │   ├── app.py              # Main unified Streamlit portal (Student, Teacher, Live Demo, ML Bench)
 │   ├── student.py          # Student Adaptive Learning & Question Runner
@@ -31,14 +35,14 @@ YUVA/
 │   ├── run_ui.py           # Streamlit portal launcher (auto-port detection)
 │   └── __init__.py
 │
-├── data/                   # 📊 Curriculum Graph, Parameterized Questions, Personas & Configs
+├── data/                   #  Curriculum Graph, Parameterized Questions, Personas & Configs
 │   ├── concepts.json       # Canonical 10-concept curriculum DAG (C1 to C10)
 │   ├── questions.json      # 50 verified math questions verified via fractions.Fraction
 │   ├── personas.json       # 4 student archetypes (False Master, Prereq Gap, Rapid Guesser, Twin)
 │   ├── config.yaml         # Deterministic threshold configurations
 │   └── sim_profiles/       # JSON execution traces for automated replay
 │
-├── docs/                   # 📑 Presentations, Pitch Deck, Handbooks & Official Proposals
+├── docs/                   #  Presentations, Pitch Deck, Handbooks & Official Proposals
 │   ├── presentation.html   # Standalone interactive slide deck for presentation
 │   ├── PITCH_PLAYBOOK.md   # Complete judge defense playbook & scoring rubric alignment
 │   ├── PITCH_DECK.md       # Slide-by-slide script and talking points
@@ -48,33 +52,47 @@ YUVA/
 │   ├── YUVA PPT.pptx       # Official competition slide deck
 │   └── *.docx, *.pdf       # Official proposals and problem statements
 │
-├── tests/                  # 🧪 Comprehensive Automated Pytest Suite (41 Tests, 100% Green)
+├── scripts/                #  Utility, Catalog Generation & Verification Scripts
+│   ├── generate_api_used_docx.py
+│   ├── generate_chapters_docx.py
+│   ├── generate_guide_docx.py
+│   ├── generate_infographic_ppt.py
+│   ├── generate_latest_ppt.py
+│   ├── generate_ml_qa_docx.py
+│   ├── generate_presentation_docx.py
+│   ├── populate_megathon_template.py
+│   ├── test_direct_mail.py
+│   └── verify_all_42.py
+│
+├── tests/                  #  Comprehensive Automated Pytest Suite (55 Tests, 100% Green)
 │   ├── conftest.py         # Test environment and path resolution setup
 │   ├── test_api.py         # FastAPI route verification
 │   ├── test_bank.py        # Question bank exactness verification
 │   ├── test_coldstart.py   # Cold-start cognitive divergence proof
 │   ├── test_decide.py      # The 6 deterministic ordered pedagogical rules
+│   ├── test_email_otp.py   # Email OTP authentication and reset flows
 │   ├── test_engine_core.py # BKT update, uncertainty SE, Ebbinghaus decay formulas
+│   ├── test_export.py      # Multi-format CSV and Excel data export service
 │   ├── test_heatmap.py     # Cohort heatmap & bottleneck detection
 │   ├── test_innovations.py # Information gain item ranking & student agency
+│   ├── test_multi_subject_video.py # Multi-subject curriculum & YouTube catalog tests
 │   ├── test_override.py    # Persistent teacher override & audit log
 │   ├── test_persistence.py # SQLite state persistence & recovery
 │   ├── test_replay.py      # Archetype multi-step simulation replay
 │   ├── test_service_contract.py # Engine export contract verification
 │   └── test_time_travel.py # Longitudinal virtual clock forgetting curves
 │
-├── masteryflow/            # 🔄 Zero-overhead package compatibility junctions
-├── masteryflow.db          # 💾 Active SQLite database with seeded students, concepts & attempts
-├── requirements.txt        # 📦 Pinned Python dependencies
-├── .gitignore              # 🛡️ Clean git ignore for caches, venvs, and artifacts
-├── run_demo.py             # 🚀 Unified Full-Stack Launcher (boots Backend + Frontend)
-├── run_api.py              # 🔌 Root shortcut to launch Backend
-└── run_ui.py               # 🌐 Root shortcut to launch Frontend
+├── masteryflow.db          #  Active SQLite database with seeded students, concepts & attempts
+├── requirements.txt        #  Pinned Python dependencies
+├── .gitignore              #  Clean git ignore for caches, venvs, and artifacts
+├── run_demo.py             #  Unified Full-Stack Launcher (boots Backend + Frontend)
+├── run_api.py              #  Root shortcut to launch Backend
+└── run_ui.py               #  Root shortcut to launch Frontend
 ```
 
 ---
 
-## 👥 The 4-Member Engineering Team & Role Ownership
+##  The 4-Member Engineering Team & Role Ownership
 
 | Member | Primary Role | Core Deliverables & Workstream |
 | :--- | :--- | :--- |
@@ -85,7 +103,7 @@ YUVA/
 
 ---
 
-## 🌟 The Core Innovation: Moving Beyond Black-Box AI
+##  The Core Innovation: Moving Beyond Black-Box AI
 
 Most existing adaptive learning systems suffer from an **explainability crisis**: they rely either on opaque deep-learning recommenders or non-deterministic LLMs that hallucinate difficulty and give unexplainable recommendations.
 
@@ -97,7 +115,7 @@ Most existing adaptive learning systems suffer from an **explainability crisis**
 
 ---
 
-## 🗺️ The Structural Curriculum Graph (C1–C10 Fractions & Ratios)
+##  The Structural Curriculum Graph (C1–C10 Fractions & Ratios)
 
 ```text
 [C1: Fraction Basics]
@@ -129,7 +147,7 @@ Most existing adaptive learning systems suffer from an **explainability crisis**
 
 ---
 
-## ⚖️ The 6 Deterministic Pedagogical Rules (`backend/engine/decide.py`)
+##  The 6 Deterministic Pedagogical Rules (`backend/engine/decide.py`)
 
 At each interaction, the decision engine evaluates six ordered rules in strict priority:
 1. **Rule 0: Persistent Teacher Override (Human Authority):** Human-in-the-loop override logged in SQLite takes absolute precedence over automated algorithms.
@@ -142,7 +160,7 @@ At each interaction, the decision engine evaluates six ordered rules in strict p
 
 ---
 
-## 🚀 Quickstart & Reproduction
+##  Quickstart & Reproduction
 
 ### Prerequisites:
 - Python 3.10+
@@ -190,7 +208,7 @@ python backend/demo_ml_engine.py
 
 ---
 
-## 📊 Summary of Automated Test Suite (Judge Defense Proofs)
+##  Summary of Automated Test Suite (Judge Defense Proofs)
 
 | Test ID | Stress Scenario | Expected Deterministic Engine Behavior | Status |
 | :--- | :--- | :--- | :---: |
@@ -207,7 +225,7 @@ python backend/demo_ml_engine.py
 
 ---
 
-## 📜 Mandatory Competition Disclosures & Limitations
+##  Mandatory Competition Disclosures & Limitations
 
 ### 1. Honest Disclosure of AI Tools Used:
 In compliance with YUVA Megathon rules:

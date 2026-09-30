@@ -89,23 +89,48 @@ def submit_attempt(payload: AttemptRequest):
 
 @router.get("/next-action/{student_id}")
 def get_next_action(student_id: str):
-    """Evaluate 6 deterministic pedagogical rules and yield next learning decision."""
-    decision = next_action(student_id=student_id)
-    action_val = decision.action.value if hasattr(decision.action, 'value') else str(decision.action)
-    return {
-        "action": action_val,
-        "target_concept": decision.target_concept,
-        "target_concept_name": decision.target_concept_name,
-        "reason": decision.reason,
-        "rule_number": decision.rule_number,
-        "rule_name": decision.rule_name,
-        "p_eff": decision.p_eff,
-        "evidence_sum": decision.evidence_sum,
-        "status": decision.status,
-        "is_fragile": decision.is_fragile,
-        "config_version": decision.config_version,
-        "inputs_json": decision.inputs_json
-    }
+    """Evaluate 6 deterministic pedagogical rules and yield next learning decision from SQLite database."""
+    from backend.api.db import Database
+    from backend.engine.graph import load_concept_graph
+    from backend.engine.decide import next_action as compute_next_action, StudentState, ConceptState
+    from backend.engine.decay import compute_effective_mastery
+    from pathlib import Path
+
+    db_path = str(Path(__file__).parent.parent.parent / "masteryflow.db")
+    db = Database(db_path)
+    graph = load_concept_graph(str(Path(__file__).parent.parent.parent / "data" / "concepts.json"))
+
+    stu = db.get_student(student_id)
+    active_cid = stu.get("active_concept_id", "C1") if stu else "C1"
+    m_map = db.get_student_mastery_map(student_id)
+
+    cstates = {}
+    for cid, row in m_map.items():
+        decayed_p_eff = compute_effective_mastery(
+            p=row["p"],
+            dt_days=0.0,
+            stability_days=row["stability_days"]
+        )
+        cstates[cid] = ConceptState(
+            p=row["p"],
+            p_eff=decayed_p_eff,
+            stability_days=row["stability_days"],
+            evidence_sum=row["evidence_sum"],
+            transfer_passed=bool(row["transfer_passed"]),
+            is_fragile=bool(row["is_fragile"]),
+            status=row["status"]
+        )
+
+    override = db.get_active_override(student_id)
+    s_state = StudentState(
+        student_id=student_id,
+        active_concept_id=active_cid,
+        concepts=cstates,
+        active_override=override,
+        last_attempt_time_days=0.0
+    )
+    decision = compute_next_action(s_state, graph)
+    return decision.to_dict()
 
 
 @router.get("/state/{student_id}")
@@ -116,9 +141,13 @@ def get_state(student_id: str):
 
 @router.get("/student/{student_id}/mastery")
 def get_student_mastery_endpoint(student_id: str):
-    """Retrieve per-concept cognitive mastery dictionary for student UI."""
-    state = get_student_state(student_id=student_id)
-    return {"status": "success", "student_id": student_id, "mastery": state.get("concepts", {})}
+    """Retrieve per-concept cognitive mastery dictionary from SQLite DB."""
+    from backend.api.db import Database
+    from pathlib import Path
+    db_path = str(Path(__file__).parent.parent.parent / "masteryflow.db")
+    db = Database(db_path)
+    m_map = db.get_student_mastery_map(student_id)
+    return {"status": "success", "student_id": student_id, "mastery": m_map}
 
 
 @router.post("/teacher/override")

@@ -24,7 +24,10 @@ def temp_db():
     os.close(fd)
     yield path
     if os.path.exists(path):
-        os.remove(path)
+        try:
+            os.remove(path)
+        except OSError:
+            pass
 
 
 # ==================== INNOVATION (B): INFORMATION GAIN TESTS ====================

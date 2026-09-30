@@ -1,6 +1,5 @@
-"""MasteryFlow ML Engine Live Inspector & Persona Bench (ml_inspector.py).
+"""MasteryFlow ML Engine Live Inspector & Telemetry Bench (ml_inspector.py).
 
-Designed for Yash (ML Lead) & Hackathon Jury Live Demonstration.
 Provides interactive live execution of Profiles A, B, C, and D,
 real-time psychometric formula proofs, and FastAPI engine telemetry.
 Aesthetic: Modern 2026 Linear/Raycast dark glass design with mathematical verification cards.
@@ -29,7 +28,7 @@ try:
         get_cohort_heatmap,
         get_stuck_learners
     )
-    from frontend.components.theme import apply_theme
+    from frontend.components.theme import apply_theme, render_html
 except ImportError:
     from masteryflow.engine import (
         BKTModel,
@@ -49,94 +48,91 @@ except ImportError:
         get_cohort_heatmap,
         get_stuck_learners
     )
-    from masteryflow.ui.components.theme import apply_theme
+    from masteryflow.ui.components.theme import apply_theme, render_html
 
 
 def render_ml_engine_inspector():
     apply_theme()
 
-    st.markdown("""
-    <div style="
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        padding-bottom: 18px;
+    render_html("""
+    <div class="mf-glass-card" style="
+        padding: 22px 26px;
         margin-bottom: 22px;
-        flex-wrap: wrap;
-        gap: 12px;
     ">
-        <div>
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="
-                    width: 44px;
-                    height: 44px;
-                    border-radius: 12px;
-                    background: linear-gradient(135deg, #00F0FF 0%, #8B5CF6 100%);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1.4rem;
-                    box-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
-                ">
-                    ⚡
-                </div>
-                <div>
-                    <h1 style="color: #00F0FF; margin: 0; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; font-family: 'Space Grotesk', sans-serif;">
-                        ML ENGINE<span style="color: #FFFFFF;"> &amp; KNOWLEDGE TRACING BENCH</span>
-                    </h1>
-                    <div style="font-size: 0.84rem; color: #94A3B8; margin-top: 2px;">
-                        Deterministic Psychometrics &middot; Zero LLMs in Decision Loop &middot; Authored by Yash (ML Lead)
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 12px;
+                        background: #11141D;
+                        color: #FFFFFF;
+                        font-weight: 800;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 0.95rem;
+                        letter-spacing: 0.5px;
+                        box-shadow: 0 4px 14px rgba(17, 20, 29, 0.18);
+                    ">ML</div>
+                    <div>
+                        <h1 style="color: #11141D; margin: 0; font-size: 1.55rem; font-weight: 800; letter-spacing: -0.02em;">
+                            ML ENGINE <span style="color: #11141D;">&amp; KNOWLEDGE TRACING BENCH</span>
+                        </h1>
+                        <div style="font-size: 0.84rem; color: #78716C; margin-top: 3px;">
+                            Deterministic Psychometrics &middot; Zero LLMs in Decision Loop &middot; Pure Mathematical Precision
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <span style="
-                background: rgba(0, 240, 255, 0.12);
-                color: #00F0FF;
-                border: 1px solid rgba(0, 240, 255, 0.35);
-                font-size: 0.72rem;
-                font-weight: 800;
-                padding: 4px 14px;
-                border-radius: 9999px;
-                letter-spacing: 0.8px;
-            ">
-                ● BKT + EBBINGHAUS + DAG
-            </span>
-            <span style="
-                background: rgba(16, 185, 129, 0.15);
-                color: #34D399;
-                border: 1px solid rgba(16, 185, 129, 0.4);
-                font-size: 0.72rem;
-                font-weight: 800;
-                padding: 4px 14px;
-                border-radius: 9999px;
-                letter-spacing: 0.8px;
-            ">
-                ● 0.00% SEED DRIFT
-            </span>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <span style="
+                    background: #E8F7F0;
+                    color: #047857;
+                    border: 1px solid rgba(5, 150, 105, 0.35);
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    padding: 5px 14px;
+                    border-radius: 9999px;
+                    letter-spacing: 0.5px;
+                ">
+                    ● BKT + EBBINGHAUS + DAG
+                </span>
+                <span style="
+                    background: #E0F2FE;
+                    color: #0369A1;
+                    border: 1px solid rgba(2, 132, 199, 0.35);
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    padding: 5px 14px;
+                    border-radius: 9999px;
+                    letter-spacing: 0.5px;
+                ">
+                    ● 0.00% SEED DRIFT
+                </span>
+            </div>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """)
 
     tab_personas, tab_math, tab_contract = st.tabs([
-        "🧪 Live Persona Simulations (A, B, C, D)",
-        "📐 Psychometric Math & Formulas",
-        "🔌 Colleague API Service Contract"
+        "Live Persona Simulations (A, B, C, D)",
+        "Psychometric Math & Formulas",
+        "Colleague API Service Contract"
     ])
 
     with tab_personas:
-        st.markdown("""
-        <div style="margin-bottom: 12px;">
-            <h3 style="font-family: 'Space Grotesk', sans-serif; color: #FFFFFF; font-size: 1.25rem; font-weight: 800; margin: 0;">
-                🎯 Interactive Verification of Core Psychometric Invariants
+        render_html("""
+        <div style="margin-bottom: 14px;">
+            <h3 style="color: #11141D; font-size: 1.15rem; font-weight: 800; margin: 0;">
+                Interactive Verification of Core Psychometric Invariants
             </h3>
-            <p style="font-size: 0.82rem; color: #94A3B8; margin: 4px 0 0 0;">
+            <p style="font-size: 0.84rem; color: #78716C; margin: 4px 0 0 0;">
                 Select a persona archetype to execute its deterministic simulation and inspect the mathematical evidence.
             </p>
         </div>
-        """, unsafe_allow_html=True)
+        """)
 
         persona_choice = st.radio(
             "Select Persona Simulation:",
@@ -150,22 +146,22 @@ def render_ml_engine_inspector():
         )
 
         if "Profile A" in persona_choice:
-            st.markdown("""
-            <div class="mf-glass-card" style="padding: 18px 22px; margin-bottom: 16px;">
+            render_html("""
+            <div class="mf-glass-card" style="padding: 20px 24px; margin-bottom: 16px; border-left: 5px solid #0284C7;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                    <span style="color: #00F0FF; font-weight: 800; font-size: 1.05rem; font-family: 'Space Grotesk', sans-serif;">
+                    <span style="color: #11141D; font-weight: 800; font-size: 1.05rem;">
                         Profile A Thesis: High Raw Accuracy on Easy Items Must NOT Bypass Deep Mastery
                     </span>
                 </div>
-                <p style="color: #CBD5E1; font-size: 0.86rem; margin: 0; line-height: 1.55;">
+                <p style="color: #4B5563; font-size: 0.88rem; margin: 0; line-height: 1.55;">
                     A learner answers 4 consecutive easy questions (difficulty 0.2) correctly, driving raw <code>p</code> to 0.99.
                     However, when served a high-difficulty transfer problem (difficulty 0.8), they fail.<br>
-                    <strong style="color: #00F0FF;">Invariant:</strong> Certified mastery is BLOCKED; concept remains 'Provisional' and Rule 4 keeps the learner in practice.
+                    <strong style="color: #0284C7;">Invariant:</strong> Certified mastery is BLOCKED; concept remains 'Provisional' and Rule 4 keeps the learner in practice.
                 </p>
             </div>
-            """, unsafe_allow_html=True)
+            """)
 
-            if st.button("▶️ Run Profile A Simulation", type="primary"):
+            if st.button("Run Profile A Simulation", type="primary"):
                 dag = ConceptDAG()
                 bkt = BKTModel()
                 engine = DecisionEngine(dag=dag, bkt=bkt)
@@ -178,7 +174,7 @@ def render_ml_engine_inspector():
                     res = bkt.update_mastery(c1, correct=True, difficulty=0.2, is_transfer=False, telemetry=tel, current_timestamp=float(i * 10))
                     records.append({
                         "Attempt": f"#{i} (Easy d=0.2)",
-                        "Outcome": "✅ Correct",
+                        "Outcome": "Correct",
                         "Posterior p": f"{res.new_p:.3f}",
                         "Weight w": f"{res.evidence_weight:.2f}",
                         "Evidence Sum": f"{res.evidence_sum:.2f}",
@@ -190,7 +186,7 @@ def render_ml_engine_inspector():
                 res_trans = bkt.update_mastery(c1, correct=False, difficulty=0.8, is_transfer=True, telemetry=tel_trans, current_timestamp=60.0)
                 records.append({
                     "Attempt": "#5 (Transfer d=0.8)",
-                    "Outcome": "❌ Fail",
+                    "Outcome": "Fail",
                     "Posterior p": f"{res_trans.new_p:.3f}",
                     "Weight w": f"{res_trans.evidence_weight:.2f}",
                     "Evidence Sum": f"{res_trans.evidence_sum:.2f}",
@@ -208,21 +204,21 @@ def render_ml_engine_inspector():
                 """)
 
         elif "Profile B" in persona_choice:
-            st.markdown("""
-            <div class="mf-glass-card" style="padding: 18px 22px; margin-bottom: 16px; border-color: rgba(244, 63, 94, 0.3);">
+            render_html("""
+            <div class="mf-glass-card" style="padding: 20px 24px; margin-bottom: 16px; border-left: 5px solid #E11D48;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                    <span style="color: #F43F5E; font-weight: 800; font-size: 1.05rem; font-family: 'Space Grotesk', sans-serif;">
+                    <span style="color: #11141D; font-weight: 800; font-size: 1.05rem;">
                         Profile B Thesis: Prerequisite Collapse Imposes Ceiling Capping
                     </span>
                 </div>
-                <p style="color: #CBD5E1; font-size: 0.86rem; margin: 0; line-height: 1.55;">
+                <p style="color: #4B5563; font-size: 0.88rem; margin: 0; line-height: 1.55;">
                     A learner attempts C4 (Addition) with raw score 0.88, but foundational prerequisite C2 (Equivalent Fractions) has decayed to 0.35.<br>
-                    <strong style="color: #F43F5E;">Invariant:</strong> C4 mastery is capped at <code>min(prereq) + 0.25 = 0.35 + 0.25 = 0.60</code>, flagged fragile, and Rule 2 forces upstream remediation on C2.
+                    <strong style="color: #BE123C;">Invariant:</strong> C4 mastery is capped at <code>min(prereq) + 0.25 = 0.35 + 0.25 = 0.60</code>, flagged fragile, and Rule 2 forces upstream remediation on C2.
                 </p>
             </div>
-            """, unsafe_allow_html=True)
+            """)
 
-            if st.button("▶️ Run Profile B Simulation", type="primary"):
+            if st.button("Run Profile B Simulation", type="primary"):
                 dag = ConceptDAG()
                 bkt = BKTModel()
                 engine = DecisionEngine(dag=dag, bkt=bkt)
@@ -250,21 +246,21 @@ def render_ml_engine_inspector():
                 """)
 
         elif "Profile C" in persona_choice:
-            st.markdown("""
-            <div class="mf-glass-card" style="padding: 18px 22px; margin-bottom: 16px; border-color: rgba(245, 158, 11, 0.3);">
+            render_html("""
+            <div class="mf-glass-card" style="padding: 20px 24px; margin-bottom: 16px; border-left: 5px solid #D97706;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                    <span style="color: #F59E0B; font-weight: 800; font-size: 1.05rem; font-family: 'Space Grotesk', sans-serif;">
+                    <span style="color: #11141D; font-weight: 800; font-size: 1.05rem;">
                         Profile C Thesis: Multi-Signal Telemetry Defeats Rapid Guessing Attacks
                     </span>
                 </div>
-                <p style="color: #CBD5E1; font-size: 0.86rem; margin: 0; line-height: 1.55;">
+                <p style="color: #4B5563; font-size: 0.88rem; margin: 0; line-height: 1.55;">
                     An adversarial learner attempts to brute-force a correct answer by spam-clicking in &lt; 3 seconds with a retry gap &lt; 5 seconds.<br>
-                    <strong style="color: #F59E0B;">Invariant:</strong> Telemetry penalization reduces evidence weight <code>w</code> to exactly 0.0, resulting in zero unearned mastery gain.
+                    <strong style="color: #B45309;">Invariant:</strong> Telemetry penalization reduces evidence weight <code>w</code> to exactly 0.0, resulting in zero unearned mastery gain.
                 </p>
             </div>
-            """, unsafe_allow_html=True)
+            """)
 
-            if st.button("▶️ Run Profile C Simulation", type="primary"):
+            if st.button("Run Profile C Simulation", type="primary"):
                 bkt = BKTModel()
                 learner = LearnerState(student_id="STU_PROFILE_C")
                 c1 = learner.get_or_create_concept("C1", default_p=0.30)
@@ -277,7 +273,7 @@ def render_ml_engine_inspector():
                     "Attempt": "#1 (Normal Fail)",
                     "Latency": "4500 ms",
                     "Retry Gap": "N/A",
-                    "Outcome": "❌ Incorrect",
+                    "Outcome": "Incorrect",
                     "Weight w": f"{res0.evidence_weight:.4f}",
                     "Posterior p": f"{c1.p:.4f}",
                     "Defense": "Baseline fail"
@@ -298,7 +294,7 @@ def render_ml_engine_inspector():
                         "Attempt": f"#{att} (Spam Click)",
                         "Latency": "1600 ms (<3s)",
                         "Retry Gap": "1.8s (<5s)",
-                        "Outcome": "✅ Lucky Guess",
+                        "Outcome": "Lucky Guess",
                         "Weight w": f"{res.evidence_weight:.4f} (ZERO)",
                         "Posterior p": f"{res.new_p:.4f}",
                         "Defense": "Penalties: rapid retry + latency + guess discount"
@@ -309,23 +305,23 @@ def render_ml_engine_inspector():
                 st.info(f"**Net Mastery Gain During Attack:** `{net_gain:+.4f}`. **Attack Defeated!** Brute-force guessing yielded zero unearned mastery.")
 
         elif "Profile D" in persona_choice:
-            st.markdown("""
-            <div class="mf-glass-card" style="padding: 18px 22px; margin-bottom: 16px; border-color: rgba(168, 85, 247, 0.3);">
+            render_html("""
+            <div class="mf-glass-card" style="padding: 20px 24px; margin-bottom: 16px; border-left: 5px solid #7C3AED;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                    <span style="color: #A855F7; font-weight: 800; font-size: 1.05rem; font-family: 'Space Grotesk', sans-serif;">
+                    <span style="color: #11141D; font-weight: 800; font-size: 1.05rem;">
                         Profile D Thesis: Longitudinal Ebbinghaus Divergence on Identical Scores
                     </span>
                 </div>
-                <p style="color: #CBD5E1; font-size: 0.86rem; margin: 0; line-height: 1.55;">
+                <p style="color: #4B5563; font-size: 0.88rem; margin: 0; line-height: 1.55;">
                     Two learners present with identical ~60% current mastery scores.
                     Student A previously mastered the concept but has been inactive for 20 days (memory decay).
                     Student B is an active learner who achieved 60% with heavy hint consultation.<br>
-                    <strong style="color: #A855F7;">Invariant:</strong> Identical scores diverge into opposite actions: Student A &rarr; <code>Review</code>, Student B &rarr; <code>Practice</code>.
+                    <strong style="color: #7C3AED;">Invariant:</strong> Identical scores diverge into opposite actions: Student A &rarr; <code>Review</code>, Student B &rarr; <code>Practice</code>.
                 </p>
             </div>
-            """, unsafe_allow_html=True)
+            """)
 
-            if st.button("▶️ Run Profile D Simulation", type="primary"):
+            if st.button("Run Profile D Simulation", type="primary"):
                 dag = ConceptDAG()
                 bkt = BKTModel()
                 engine = DecisionEngine(dag=dag, bkt=bkt)
@@ -350,29 +346,29 @@ def render_ml_engine_inspector():
 
                 col_a, col_b = st.columns(2)
                 with col_a:
-                    st.markdown("#### 👤 Student A (Longitudinal Inactive)")
+                    st.markdown("#### Student A (Longitudinal Inactive)")
                     st.write(f"• Baseline p: `0.92` (Previously Mastered)")
                     st.write(f"• Inactive Time: `20 days`")
                     st.write(f"• Effective Mastery \\(p_{{eff}}\\): `{decay_a.p_eff:.2f}`")
                     st.markdown(f"**Action:** `{dec_a.action.value}` &middot; *Arrest forgetting*")
 
                 with col_b:
-                    st.markdown("#### 👤 Student B (Active Learner with Hints)")
+                    st.markdown("#### Student B (Active Learner with Hints)")
                     st.write(f"• Current p: `{c1_b.p:.2f}`")
                     st.write(f"• Hints Used: `2 hints`")
                     st.write(f"• Effective Mastery \\(p_{{eff}}\\): `{c1_b.p:.2f}`")
                     st.markdown(f"**Action:** `{dec_b.action.value}` &middot; *Zone of proximal development*")
 
-                st.success("✅ **JUDGE PROOF:** Identical 60% scores diverged deterministically into `REVIEW` vs `PRACTICE` based on learning history.")
+                st.success("**JUDGE PROOF:** Identical 60% scores diverged deterministically into `REVIEW` vs `PRACTICE` based on learning history.")
 
     with tab_math:
-        st.markdown("""
-        <div style="margin-bottom: 12px;">
-            <h3 style="font-family: 'Space Grotesk', sans-serif; color: #FFFFFF; font-size: 1.25rem; font-weight: 800; margin: 0;">
-                📐 Formal Psychometric Formulations (Zero LLM Invariants)
+        render_html("""
+        <div style="margin-bottom: 14px;">
+            <h3 style="color: #11141D; font-size: 1.15rem; font-weight: 800; margin: 0;">
+                Formal Psychometric Formulations (Zero LLM Invariants)
             </h3>
         </div>
-        """, unsafe_allow_html=True)
+        """)
 
         st.markdown(r"""
         #### 1. Bayesian Knowledge Tracing with Evidence Weighting
@@ -407,20 +403,20 @@ def render_ml_engine_inspector():
         """)
 
     with tab_contract:
-        st.markdown("""
-        <div style="margin-bottom: 12px;">
-            <h3 style="font-family: 'Space Grotesk', sans-serif; color: #FFFFFF; font-size: 1.25rem; font-weight: 800; margin: 0;">
-                🔌 FastAPI &amp; Persistent Service Contract Verification
+        render_html("""
+        <div style="margin-bottom: 14px;">
+            <h3 style="color: #11141D; font-size: 1.15rem; font-weight: 800; margin: 0;">
+                FastAPI &amp; Persistent Service Contract Verification
             </h3>
-            <p style="font-size: 0.82rem; color: #94A3B8; margin: 4px 0 0 0;">
+            <p style="font-size: 0.84rem; color: #78716C; margin: 4px 0 0 0;">
                 Inspect live outputs from the official service layer exposed in <code>masteryflow.engine</code>.
             </p>
         </div>
-        """, unsafe_allow_html=True)
+        """)
 
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("🧪 Test record_attempt() & next_action()", type="primary"):
+            if st.button("Test record_attempt() & next_action()", type="primary"):
                 res = record_attempt(
                     student_id="STU_LIVE_TEST",
                     concept_id="C1",
@@ -450,7 +446,7 @@ def render_ml_engine_inspector():
                 })
 
         with col2:
-            if st.button("👥 Test get_cohort_heatmap() & stuck_learners()"):
+            if st.button("Test get_cohort_heatmap() & stuck_learners()"):
                 matrix = get_cohort_heatmap(["STU_LIVE_TEST", "STU_PROFILE_A", "STU_PROFILE_B"])
                 stuck = get_stuck_learners()
                 st.write("**Cohort Heatmap Matrix (Sample):**")

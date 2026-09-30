@@ -11,106 +11,128 @@
       "default_p": 0.25,
       "order": 1,
       "category": "Foundations",
-      "icon": "🍰"
+      "icon": ""
     },
     {
       "id": "C2",
       "name": "Equivalent fractions and simplifying",
       "short_name": "Equivalent Fractions",
       "description": "Equivalence principle: generating equivalent fractions and reducing to lowest terms via GCD.",
-      "prerequisites": ["C1"],
-      "default_p": 0.20,
+      "prerequisites": [
+        "C1"
+      ],
+      "default_p": 0.2,
       "order": 2,
       "category": "Foundations",
-      "icon": "⚖️"
+      "icon": ""
     },
     {
       "id": "C3",
       "name": "Comparing and ordering fractions",
       "short_name": "Comparing Fractions",
       "description": "Magnitude comparison using benchmark fractions (0, 1/2, 1) and common denominators.",
-      "prerequisites": ["C2"],
-      "default_p": 0.20,
+      "prerequisites": [
+        "C2"
+      ],
+      "default_p": 0.2,
       "order": 3,
       "category": "Comparison",
-      "icon": "🔍"
+      "icon": ""
     },
     {
       "id": "C4",
       "name": "Adding and subtracting fractions",
       "short_name": "Fraction Addition & Subtraction",
       "description": "Fraction addition and subtraction across like and unlike denominators using LCD.",
-      "prerequisites": ["C2"],
+      "prerequisites": [
+        "C2"
+      ],
       "default_p": 0.15,
       "order": 4,
       "category": "Operations",
-      "icon": "➕"
+      "icon": ""
     },
     {
       "id": "C5",
       "name": "Multiplying and dividing fractions",
       "short_name": "Fraction Multiplication & Division",
       "description": "Multiplicative operations: area scaling, cross-simplification, and reciprocal division.",
-      "prerequisites": ["C2"],
+      "prerequisites": [
+        "C2"
+      ],
       "default_p": 0.15,
       "order": 5,
       "category": "Operations",
-      "icon": "✖️"
+      "icon": ""
     },
     {
       "id": "C6",
       "name": "Ratio basics (part:part, part:whole)",
       "short_name": "Ratio Basics",
       "description": "Relational thinking: understanding part-to-part and part-to-whole ratios.",
-      "prerequisites": ["C1", "C2"],
+      "prerequisites": [
+        "C1",
+        "C2"
+      ],
       "default_p": 0.15,
       "order": 6,
       "category": "Ratios",
-      "icon": "📊"
+      "icon": ""
     },
     {
       "id": "C7",
       "name": "Equivalent ratios and unit rate",
       "short_name": "Equivalent Ratios & Unit Rate",
       "description": "Rate of change: finding unit rates, scaling ratios, and identifying proportional tables.",
-      "prerequisites": ["C6", "C5"],
-      "default_p": 0.10,
+      "prerequisites": [
+        "C6",
+        "C5"
+      ],
+      "default_p": 0.1,
       "order": 7,
       "category": "Ratios",
-      "icon": "⚡"
+      "icon": ""
     },
     {
       "id": "C8",
       "name": "Proportion (solve a/b = c/d)",
       "short_name": "Proportions",
       "description": "Algebraic scaling: solving proportions using cross-multiplication and constant of proportionality.",
-      "prerequisites": ["C7"],
-      "default_p": 0.10,
+      "prerequisites": [
+        "C7"
+      ],
+      "default_p": 0.1,
       "order": 8,
       "category": "Proportions",
-      "icon": "🎯"
+      "icon": ""
     },
     {
       "id": "C9",
       "name": "Percentages as ratios",
       "short_name": "Percentages as Ratios",
       "description": "Per-hundred representation: converting between fractions, decimals, and percentages.",
-      "prerequisites": ["C3", "C6"],
-      "default_p": 0.10,
+      "prerequisites": [
+        "C3",
+        "C6"
+      ],
+      "default_p": 0.1,
       "order": 9,
       "category": "Applied",
-      "icon": "🏷️"
+      "icon": ""
     },
     {
       "id": "C10",
       "name": "Proportion word problems & scaling",
       "short_name": "Proportion Word Problems",
       "description": "Capstone node: multi-step real-world modeling, map scales, currency conversions, and rate synthesis.",
-      "prerequisites": ["C8", "C9"],
+      "prerequisites": [
+        "C8",
+        "C9"
+      ],
       "default_p": 0.05,
       "order": 10,
       "category": "Capstone",
-      "icon": "🚀"
+      "icon": ""
     }
   ]
 }

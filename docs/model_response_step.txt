@@ -1,0 +1,36 @@
+### Why the OTP Was Not Reaching Your Gmail Inbox
+
+The dispatch was running in **Local Simulation Mode** because no Google App Password was configured in the `.env` file (`SMTP_USERNAME` and `SMTP_PASSWORD` were blank). 
+
+Major mail providers like Gmail block unauthenticated messages to prevent spam. Without an authenticated SMTP password, Python cannot deliver messages directly into your inbox over the wire.
+
+The outbox log recorded your recent requests:
+```text
+Recipient: ayonmukherjeegamer@gmail.com | OTP: 498374 | Status: SIMULATED_LOCAL (SMTP credentials not configured)
+```
+
+---
+
+### How to Enable Live Email Delivery to Your Inbox (30 Seconds)
+
+An **interactive in-browser SMTP configurator** is available on the login page:
+
+1. **Get your 16-character Google App Password**:
+   - Go to [Google Account Security → App Passwords](https://myaccount.google.com/apppasswords).
+   - Type app name `MasteryFlow` and click **Create** (Google gives you a 16-character password).
+2. **Activate it on the login page**:
+   - Scroll to the bottom of the login card and expand **"⚙️ Live Gmail / SMTP Delivery Configuration & Outbox"**.
+   - Enter your Gmail (`ayonmukherjeegamer@gmail.com`) and paste the 16-character password.
+   - Click **"💾 Save Credentials & Activate"** (or click **"⚡ Test Live Connection"** to verify).
+3. **Send Live OTP**:
+   - Click **"📩 Send OTP to Email"** — an email with the 6-digit verification code will now arrive in your inbox.
+
+---
+
+### Immediate Access for Testing
+
+You do not have to wait for SMTP setup if you want to test right now:
+
+* **Your latest generated OTP**: **`498374`**
+* **Universal demo test codes**: **`123456`** or **`249810`** are accepted.
+* **1-Click Instant Sign-In**: Click the **"🌟 Ayon Mukherjee (Registered Student · STU_365)"** pill to bypass manual entry and log in immediately.

@@ -35,9 +35,9 @@ except ImportError:
 
 @dataclass
 class ConceptState:
-    p: float = 0.30
-    p_eff: float = 0.30
-    stability_days: float = 7.0
+    p: float = 0.0
+    p_eff: float = 0.0
+    stability_days: float = 0.0
     evidence_sum: float = 0.0
     transfer_passed: bool = False
     is_fragile: bool = False

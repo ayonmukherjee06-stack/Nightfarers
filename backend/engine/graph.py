@@ -61,6 +61,10 @@ class PrerequisiteGraph:
         """Returns topological ordering of all concepts."""
         return list(nx.topological_sort(self.graph))
 
+    def get_topological_order(self) -> List[str]:
+        """Alias for topological_order() for cross-graph compatibility."""
+        return self.topological_order()
+
     def apply_prerequisite_capping(
         self,
         concept_id: str,
@@ -271,7 +275,10 @@ class ConceptDAG:
 def load_concept_graph(concepts_json_path: Optional[str] = None) -> PrerequisiteGraph:
     """Loads concept graph from JSON file path."""
     if concepts_json_path is None:
-        concepts_json_path = str(Path(__file__).parent.parent / "data" / "concepts.json")
+        p = Path(__file__).resolve().parent.parent.parent / "data" / "concepts.json"
+        if not p.exists():
+            p = Path(__file__).resolve().parent.parent / "data" / "concepts.json"
+        concepts_json_path = str(p)
     with open(concepts_json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return PrerequisiteGraph(data.get("concepts", []))

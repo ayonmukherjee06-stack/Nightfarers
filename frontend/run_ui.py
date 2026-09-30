@@ -19,8 +19,8 @@ def main():
         port += 1
 
     print("=" * 80)
-    print(" 🚀 Launching MasteryFlow Interactive Student UI & Glass-Box Portal")
-    print(f" 🌐 Target URL: http://localhost:{port}")
+    print(" Launching MasteryFlow Interactive Student UI & Glass-Box Portal")
+    print(f" Target URL: http://localhost:{port}")
     print("=" * 80)
 
     # Determine app path

@@ -1,6 +1,5 @@
 """MasteryFlow Interactive Live Demo Application.
 
-Authored by: Ayon Mukherjee (Team Lead & Orchestrator)
 Role: Real-time interactive UI demonstrating the deterministic 6-rule decision engine,
 Glass-Box explainability, teacher cohort heatmap, curriculum bottleneck alerts, and live Test 8 reproducibility.
 """
@@ -28,6 +27,7 @@ try:
     from frontend.components.heatmap import render_cohort_heatmap, compute_cohort_metrics, detect_group_bottlenecks
     from frontend.components.time_travel import render_time_travel_slider, apply_time_travel_decay
     from frontend.components.agency_modal import render_agency_modal, StudentAgencyManager
+    from frontend.components.theme import apply_theme, render_html, clean_html
 except ImportError:
     from masteryflow.engine.contracts import (
         CurriculumGraph,
@@ -46,38 +46,29 @@ except ImportError:
     from masteryflow.ui.components.heatmap import render_cohort_heatmap, compute_cohort_metrics, detect_group_bottlenecks
     from masteryflow.ui.components.time_travel import render_time_travel_slider, apply_time_travel_decay
     from masteryflow.ui.components.agency_modal import render_agency_modal, StudentAgencyManager
+    from masteryflow.ui.components.theme import apply_theme, render_html, clean_html
 
 
 st.set_page_config(
     page_title="MasteryFlow Engine — Live Interactive Demo",
-    page_icon="🧠",
+    page_icon=None,
     layout="wide",
     initial_sidebar_state="expanded",
 )
+apply_theme()
 
 # Custom Header Styling
-st.markdown("""
-<style>
-    .main-header {
-        font-size: 28px;
-        font-weight: 800;
-        color: #0F172A;
-        margin-bottom: 2px;
-    }
-    .sub-header {
-        font-size: 14px;
-        color: #64748B;
-        margin-bottom: 16px;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("<div class='main-header'>🧠 MasteryFlow: Explainable Adaptive Learning Engine</div>", unsafe_allow_html=True)
-st.markdown(
-    "<div class='sub-header'><strong>YUVA Megathon 2026</strong> | Domain 4: Intelligent Educational Systems | "
-    "<strong>Team Lead & Orchestrator:</strong> Ayon Mukherjee</div>",
-    unsafe_allow_html=True,
-)
+render_html("""
+<div class="mf-glass-card" style="padding: 20px 24px; margin-bottom: 22px;">
+    <div style="font-size: 26px; font-weight: 800; color: #F8FAFC; margin-bottom: 4px; letter-spacing: -0.02em;">
+        MasteryFlow: <span style="color: #38BDF8;">Explainable Adaptive Learning Engine</span>
+    </div>
+    <div style="font-size: 13px; color: #94A3B8;">
+        <strong style="color: #CBD5E1;">YUVA Megathon 2026</strong> | Domain 4: Intelligent Educational Systems | 
+        <strong style="color: #38BDF8;">Autonomous Pedagogical Decision Engine</strong>
+    </div>
+</div>
+""")
 
 # Initialize Curriculum Graph & Config
 graph = CurriculumGraph(CANONICAL_CONCEPTS)
@@ -169,14 +160,14 @@ live_cohort = get_live_cohort()
 
 # Primary Navigation Tabs
 tab_student, tab_teacher, tab_architecture = st.tabs([
-    "👤 Student Experience & Glass-Box Explainability",
-    "👩‍🏫 Teacher Command Center & Cohort Heatmap",
-    "📐 DAG Knowledge Graph & Test 8 Proofs",
+    "Student Experience & Glass-Box Explainability",
+    "Teacher Command Center & Cohort Heatmap",
+    "DAG Knowledge Graph & Test 8 Proofs",
 ])
 
 # ==================== TAB 1: STUDENT VIEW ====================
 with tab_student:
-    st.sidebar.header("🕹️ Student Simulator")
+    st.sidebar.header("Student Simulator")
     persona_choice = st.sidebar.selectbox(
         "Select Active Learner:",
         [
@@ -184,7 +175,7 @@ with tab_student:
             "Rohan Verma (Memory Decay -> Spaced Review C1)",
             "Aarav Patel (Cognitive Plateau -> Teacher Alert)",
             "Priya Singh (High Performer -> Advance to C2)",
-            "🛠️ Custom Interactive Sandbox",
+            "Custom Interactive Sandbox",
         ],
         index=0,
     )
@@ -246,16 +237,16 @@ with tab_student:
 
     if active_override:
         st.warning(
-            f"⚡ **ACTIVE HUMAN OVERRIDE IN EFFECT:** Teacher `{active_override['teacher_id']}` has overridden "
+            f"**ACTIVE HUMAN OVERRIDE IN EFFECT:** Teacher `{active_override['teacher_id']}` has overridden "
             f"automated recommendations to enforce **{active_override['action']}** on **{active_override['target_concept_id']}**."
         )
 
     col1, col2 = st.columns([1.3, 1.0])
     with col1:
-        st.subheader("🎯 Real-Time Engine Recommendation")
+        st.subheader("Real-Time Engine Recommendation")
         render_glassbox_card(decision, graph=graph, student_name=student_name)
 
-        st.markdown("### 📊 Active Concept Telemetry")
+        st.markdown("### Active Concept Telemetry")
         m_curr = student_mastery[current_concept]
         c1, c2, c3, c4 = st.columns(4)
         c1.metric("Effective Mastery", f"{m_curr.p_eff * 100:.1f}%")
@@ -268,7 +259,7 @@ with tab_student:
 
         # Innovation (b): Information Gain Item Selection Preview
         st.markdown("---")
-        st.subheader("💡 Innovation (b): Information-Gain Adaptive Item Selection")
+        st.subheader("Innovation (b): Information-Gain Adaptive Item Selection")
         st.caption("Bayesian Active Learning: selects questions that maximize expected Fisher information reduction.")
         sample_questions = [
             {"id": "Q1", "difficulty": 0.30, "prompt": f"Introductory check on {current_concept}"},
@@ -278,35 +269,34 @@ with tab_student:
         ranked_qs = rank_items_by_information_gain(student_p=m_curr.p_eff, candidate_items=sample_questions)
         top_q = ranked_qs[0]
         st.success(
-            f"🎯 **Optimal Question Selected:** `{top_q['id']}` (Difficulty: `{top_q['difficulty']:.2f}`, "
+            f"**Optimal Question Selected:** `{top_q['id']}` (Difficulty: `{top_q['difficulty']:.2f}`, "
             f"Expected Information Gain: **{top_q['expected_ig']:.4f} bits**)\n\n"
             f"*Prompt:* \"{top_q['prompt']}\""
         )
 
     with col2:
-        st.subheader("🗺️ Individual Mastery Tree")
+        st.subheader("Individual Mastery Tree")
         for cid, meta in CANONICAL_CONCEPTS.items():
             m = student_mastery[cid]
             status_color = "#10B981" if m.was_mastered else ("#F59E0B" if m.p_eff >= 0.55 else "#EF4444")
             status_text = "Mastered" if m.was_mastered else ("In Progress" if m.p_eff >= 0.55 else "Gap (<55%)")
 
-            st.markdown(f"""
-            <div style="background: white; border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px 12px; margin-bottom: 6px;">
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="font-weight: 600; font-size: 12px; color: #1E293B;">{cid}: {meta['title']}</span>
-                    <span style="font-size: 11px; font-weight: 700; color: {status_color};">{status_text} ({m.p_eff*100:.0f}%)</span>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
+            render_html(
+                f'<div class="mf-glass-card" style="border: 1px solid rgba(148, 163, 184, 0.16); border-radius: 8px; padding: 8px 12px; margin-bottom: 6px;">'
+                f'<div style="display: flex; justify-content: space-between; align-items: center;">'
+                f'<span style="font-weight: 600; font-size: 12px; color: #F8FAFC;"><strong style="color: #38BDF8;">{cid}</strong>: {meta["title"]}</span>'
+                f'<span style="font-size: 11px; font-weight: 700; color: {status_color};">{status_text} ({m.p_eff*100:.0f}%)</span>'
+                f'</div></div>'
+            )
             st.progress(float(m.p_eff))
 
 # ==================== TAB 2: TEACHER COMMAND CENTER ====================
 with tab_teacher:
-    st.subheader("👩‍🏫 Institutional Teacher Command Center")
+    st.subheader("Institutional Teacher Command Center")
     st.markdown("Live cohort monitoring, systemic bottleneck alerts, and stuck-learner escalation queue.")
 
     # Time Travel Expander in Teacher Deck
-    with st.expander("⏳ Live Time Travel Controls (Ebbinghaus Retention Decay Simulator)", expanded=False):
+    with st.expander("Live Time Travel Controls (Ebbinghaus Retention Decay Simulator)", expanded=False):
         elapsed_days = render_time_travel_slider(default_days=0)
         if elapsed_days > 0:
             for s_id in live_cohort:
@@ -318,7 +308,7 @@ with tab_teacher:
     render_cohort_heatmap(live_cohort, graph=graph)
 
     st.markdown("---")
-    st.subheader("🛠️ 1-Click Human-in-the-Loop Override Console")
+    st.subheader("1-Click Human-in-the-Loop Override Console")
     st.caption("Teachers maintain final authority. Overrides are written to the audit log.")
     
     over_col1, over_col2, over_col3 = st.columns(3)
@@ -332,7 +322,7 @@ with tab_teacher:
     override_reason = st.text_input("Mandatory Pedagogical Reason for Audit Trail:", "Teacher observed foundational misconception during oral questioning.")
     col_btn1, col_btn2 = st.columns([1, 1])
     with col_btn1:
-        if st.button("💾 Apply & Record Teacher Override", type="primary"):
+        if st.button("Apply & Record Teacher Override", type="primary"):
             rec_id = override_mgr.record_override(
                 student_id=override_stu,
                 action=override_action,
@@ -340,18 +330,18 @@ with tab_teacher:
                 reason=override_reason,
                 teacher_id="TEACHER_SHUKLA",
             )
-            st.success(f"✅ Override Recorded in SQLite Audit Trail (ID: {rec_id}): Set {live_cohort[override_stu]['name']} to {override_action} on {override_concept}.")
+            st.success(f"Override Recorded in SQLite Audit Trail (ID: {rec_id}): Set {live_cohort[override_stu]['name']} to {override_action} on {override_concept}.")
             st.rerun()
 
     with col_btn2:
-        if st.button("🔄 Clear Active Override for Selected Student"):
+        if st.button("Clear Active Override for Selected Student"):
             active = override_mgr.get_active_override(override_stu)
             if active:
                 override_mgr.deactivate_override(active["id"])
                 st.info(f"Cleared active override for {live_cohort[override_stu]['name']}.")
                 st.rerun()
 
-    st.markdown("### 📋 SQLite Audit Log: Chronological Human Overrides")
+    st.markdown("### SQLite Audit Log: Chronological Human Overrides")
     audit_logs = override_mgr.get_override_audit_log()
     if audit_logs:
         st.dataframe(audit_logs, use_container_width=True)
@@ -359,7 +349,7 @@ with tab_teacher:
         st.info("No teacher overrides recorded yet. Click 'Apply & Record Teacher Override' above to create the first persistent audit entry.")
 
     # Innovation (c) Table in Teacher Command Center
-    st.markdown("### 🙋 Student Agency Inbox: Self-Regulated Learning Requests")
+    st.markdown("### Student Agency Inbox: Self-Regulated Learning Requests")
     agency_mgr = StudentAgencyManager("masteryflow.db")
     agency_reqs = agency_mgr.get_student_agency_requests()
     if agency_reqs:
@@ -369,10 +359,10 @@ with tab_teacher:
 
 # ==================== TAB 3: ARCHITECTURE & PROOFS ====================
 with tab_architecture:
-    st.subheader("🔬 Test 8: Decision Snapshot & Reproducibility Proof")
+    st.subheader("Test 8: Decision Snapshot & Reproducibility Proof")
     st.caption("Recomputing next_action() from stored inputs_json must produce 100% identical outputs with zero variance.")
 
-    if st.button("⚡ Run Test 8 Verification Live", type="primary"):
+    if st.button("Run Test 8 Verification Live", type="primary"):
         reconstructed = reconstruct_decision_from_snapshot(decision.inputs_snapshot, graph)
         is_exact = (
             reconstructed.action == decision.action
@@ -380,15 +370,15 @@ with tab_architecture:
             and reconstructed.reason == decision.reason
         )
         if is_exact:
-            st.success("✅ **TEST 8 PASS:** Decision reconstructed with 100% deterministic fidelity from stored snapshot JSON!")
+            st.success("**TEST 8 PASS:** Decision reconstructed with 100% deterministic fidelity from stored snapshot JSON!")
         else:
-            st.error("❌ Test 8 Failed: Inconsistency detected.")
+            st.error("Test 8 Failed: Inconsistency detected.")
 
-    st.markdown("### 📄 Stored Inputs JSON Snapshot")
+    st.markdown("### Stored Inputs JSON Snapshot")
     st.json(decision.inputs_snapshot)
 
     st.markdown("---")
-    st.subheader("📐 The 10-Concept Fractions & Ratios DAG")
+    st.subheader("The 10-Concept Fractions & Ratios DAG")
     for cid, data in CANONICAL_CONCEPTS.items():
         prereqs = data["prereqs"]
         prereq_str = ", ".join(prereqs) if prereqs else "None (Foundational Baseline)"

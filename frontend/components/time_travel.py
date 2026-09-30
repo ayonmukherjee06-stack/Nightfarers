@@ -1,6 +1,5 @@
 """MasteryFlow Virtual Clock Time Travel Component.
 
-Authored by: Ayon Mukherjee (Team Lead & Orchestrator)
 Role: Simulates passage of time (1 to 30 days) to demonstrate exponential Ebbinghaus
 memory forgetting and live triggering of Rule 3 (Spaced Retrieval Review).
 
@@ -42,7 +41,7 @@ def apply_time_travel_decay(
 
 def render_time_travel_slider(default_days: int = 0) -> int:
     """Renders the interactive virtual clock slider in Streamlit."""
-    st.markdown("#### ⏳ Virtual Clock Controller (Live Ebbinghaus Time Travel)")
+    st.markdown("#### Virtual Clock Controller (Live Ebbinghaus Time Travel)")
     st.caption("Advance time by N days to simulate realistic human memory forgetting and observe Rule 3 (Spaced Review) activate live.")
 
     days = st.slider(
@@ -56,8 +55,8 @@ def render_time_travel_slider(default_days: int = 0) -> int:
 
     if days > 0:
         pct_decay_preview = math.exp(-0.035 * days) * 100.0
-        st.info(f"📅 Clock advanced by **{days} days**. Theoretical memory retention factor: **{pct_decay_preview:.1f}%** of peak strength.")
+        st.info(f"Clock advanced by **{days} days**. Theoretical memory retention factor: **{pct_decay_preview:.1f}%** of peak strength.")
     else:
-        st.success("🕒 Clock is at Current Time (Day 0: No Memory Decay).")
+        st.success("Clock is at Current Time (Day 0: No Memory Decay).")
 
     return days

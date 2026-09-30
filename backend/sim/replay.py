@@ -40,10 +40,19 @@ def load_personas(json_path: Optional[str] = None) -> List[Dict[str, Any]]:
     """Loads scripted learner profiles from JSON file."""
     path = json_path or DEFAULT_PERSONAS_PATH
     if not os.path.exists(path):
-        raise FileNotFoundError(f"Personas file not found at: {path}")
+        alt_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "data", "personas.json")
+        if os.path.exists(alt_path):
+            path = alt_path
+        else:
+            raise FileNotFoundError(f"Personas file not found at: {path}")
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
-    return data.get("personas", [])
+    all_p = data.get("personas", [])
+    sim_ids = {"STU_DIYA", "STU_ROHAN", "STU_AARAV", "STU_PRIYA"}
+    canonical = [p for p in all_p if p.get("id") in sim_ids]
+    if len(canonical) == 4:
+        return canonical
+    return all_p
 
 
 def build_mastery_map_from_persona(persona: Dict[str, Any]) -> Dict[str, ConceptMastery]:
